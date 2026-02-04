@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme inline {
+    /* Brand Colors */
+    --color-brand-dark: #0F172A;
+    --color-brand-primary: #2D5BFF;
+    --color-brand-accent: #00D4FF;
+    --color-brand-soft: #F1F5F9;
+
+    /* Animations */
+    --animate-text-streak: streak 2s ease-in-out infinite;
+    --animate-light-bar: light 3s linear infinite;
+    --animate-blob: blob 7s infinite;
+
+    @keyframes streak {
+
+        0%,
+        100% {
+            color: #0f172a;
+        }
+
+        50% {
+            color: #2563eb;
+        }
+    }
+
+    @keyframes light {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes blob {
+        0% {
+            transform: translate(0px, 0px) scale(1);
+        }
+
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+
+        100% {
+            transform: translate(0px, 0px) scale(1);
+        }
+    }
+}
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --font-instrument: var(--font-instrument);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}
+
+/* Base Styles */
+@layer base {
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-instrument), sans-serif !important;
+        overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-black {
+        font-family: var(--font-instrument), sans-serif !important;
+        letter-spacing: -0.04em;
+    }
+    ::-webkit-scrollbar {
+    width: 6px; /* Very thin */
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.slate.200') transparent;
+  }
+}
+
+.input{
+    @apply w-full bg-slate-200 border-2 border-transparent rounded-xl md:rounded-2xl pl-12 md:pl-14 pr-12 py-3.5 md:py-4 text-slate-900 font-bold placeholder:text-slate-300 focus:bg-white focus:border-blue-500/10 focus:ring-2 focus:ring-blue-500/50 transition-all outline-none text-[10px] sm:text-sm md:text-base;
+}
+
+.tiptap {
+  outline: none;
+}
+
+.tiptap ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 1rem 0 !important;
+}
+
+.tiptap ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 1rem 0 !important;
+}
+
+.tiptap li {
+  display: list-item !important;
+} 
