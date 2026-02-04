@@ -13,11 +13,11 @@ import {
   ShieldCheck,
   LogOut,
   X,
-  Link,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Fragment, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";  
 
 export default function Topbar() {
   const { user, logout } = useAuth();
@@ -121,13 +121,13 @@ export default function Topbar() {
                 <MenuItem>
                   {({ active }) => (
                     <Link
-                      href="/settings/security"
+                      href="/settings/account"
                       className={`${
                         active ? "bg-slate-50 text-blue-600" : "text-slate-700"
                       } cursor-pointer flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors`}
                     >
                       <ShieldCheck size={18} />
-                      Security & Privacy
+                      Account
                     </Link>
                   )}
                 </MenuItem>
