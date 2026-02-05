@@ -14,7 +14,7 @@ export default function LayoutWrapper({
 
   const isDashboard = pathname.startsWith("/account");
 
-  const isMailBox = pathname.startsWith("/mailer");
+  const isMailBox = pathname.startsWith("/mail");
 
   const hidePublicLayout = isDashboard || isMailBox;
 

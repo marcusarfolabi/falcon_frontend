@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   } else if (userData.role === "admin") {
     window.location.href = userData.onboarding_completed ? "/account" : "/account/onboarding";
   } else {
-    window.location.href = "/mailer/inbox";
+    window.location.href = "/mail/inbox";
   }
 };
 

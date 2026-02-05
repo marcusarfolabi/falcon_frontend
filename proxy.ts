@@ -13,14 +13,14 @@ export default async function proxy(req: Request) {
   const isAuthPage = pathname === "/login" || pathname === "/register";
   
   const isProtectedAccount = pathname.startsWith("/account");
-  const isProtectedInbox = pathname.startsWith("/mailer/inbox");
+  const isProtectedInbox = pathname.startsWith("/mail/inbox");
   const isProtectedAdmin = pathname.startsWith("/admin");
   const isProtectedRoute = isProtectedAccount || isProtectedInbox || isProtectedAdmin;
 
   if (isAuthenticated && isAuthPage) {
     if (role === "superadmin") return NextResponse.redirect(new URL("/admin/dashboard", url.origin));
     if (role === "admin") return NextResponse.redirect(new URL("/account", url.origin));
-    return NextResponse.redirect(new URL("/mailer/inbox", url.origin));
+    return NextResponse.redirect(new URL("/mail/inbox", url.origin));
   }
 
   if (!isAuthenticated && isProtectedRoute) {
