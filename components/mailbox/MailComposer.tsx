@@ -15,6 +15,7 @@ import { Attachment } from "@/types/attachments";
 import { compressImage } from "@/util/imageCompressor";
 import { useUploadAttachment } from "@/hooks/useUploadAttachment";
 import { useReply } from "@/hooks/useReply";
+import { SignaturePreview } from "./SignaturePreview";
 
 interface MailComposerProps {
   onSuccess: () => void;
@@ -289,6 +290,8 @@ export default function MailComposer({
       <div className="flex-1 flex flex-col min-h-0 overflow-y-auto">
         <Editor content={messageHtml} onChange={setMessageHtml} />
 
+        <SignaturePreview />
+        
         <div className="px-4 pb-4 mt-4">
           {attachments.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-0 px-1">
