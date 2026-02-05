@@ -10,6 +10,7 @@ import {
   Clock,
 } from "lucide-react";
 import { motion } from "framer-motion";
+ 
 
 export default function AnalyticsPage() {
   const { data, isLoading, error } = useAnalytics();
@@ -21,18 +22,19 @@ export default function AnalyticsPage() {
       </div>
     );
 
+  // Define stats with fallback values to ensure a smooth UI during transitions
   const stats = [
     {
       label: "Total Emails",
-      value: data?.summary.totalMessages,
+      value: data?.summary.totalMessages ?? 0,
       icon: <Mail size={18} />,
       color: "text-blue-600",
       bg: "bg-blue-50",
-      tip: "Cumulative count of all messages across all mailboxes.",
+      tip: "Cumulative count of all messages in this account.",
     },
     {
       label: "Sent Items",
-      value: data?.summary.sentMessages,
+      value: data?.summary.sentMessages ?? 0,
       icon: <Send size={18} />,
       color: "text-emerald-600",
       bg: "bg-emerald-50",
@@ -40,7 +42,7 @@ export default function AnalyticsPage() {
     },
     {
       label: "Unread",
-      value: data?.summary.unreadCount,
+      value: data?.summary.unreadCount ?? 0,
       icon: <BarChart3 size={18} />,
       color: "text-amber-600",
       bg: "bg-amber-50",
@@ -48,7 +50,7 @@ export default function AnalyticsPage() {
     },
     {
       label: "Spam Ratio",
-      value: data?.summary.spamPercentage,
+      value: data?.summary.spamPercentage ?? "0%",
       icon: <ShieldAlert size={18} />,
       color: "text-orange-600",
       bg: "bg-orange-50",
@@ -58,7 +60,6 @@ export default function AnalyticsPage() {
 
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
-      {/* Header - More compact on mobile */}
       <header className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tighter">
@@ -74,11 +75,13 @@ export default function AnalyticsPage() {
         </div>
       </header>
 
-      {/* Stats Cards - Grid optimized for mobile (2 columns) */}
+      {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {stats.map((stat) => (
           <motion.div
             key={stat.label}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             className="group relative bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-all"
           >
             <div className="absolute top-3 right-3 sm:top-4 sm:right-4 group/tip">
@@ -88,9 +91,7 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            <div
-              className={`${stat.bg} ${stat.color} w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-6`}
-            >
+            <div className={`${stat.bg} ${stat.color} w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-6`}>
               {stat.icon}
             </div>
 
@@ -109,8 +110,12 @@ export default function AnalyticsPage() {
         ))}
       </div>
 
-      {/* Storage Section - Mobile First Layout */}
-      <motion.div className="relative overflow-hidden bg-slate-900 rounded-[2rem] p-6 sm:p-10 text-white shadow-xl">
+      {/* Storage Section */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="relative overflow-hidden bg-slate-900 rounded-4xl p-6 sm:p-10 text-white shadow-xl"
+      >
         <div className="relative z-10 space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -150,17 +155,21 @@ export default function AnalyticsPage() {
                 animate={{
                   width: isLoading ? "5%" : `${data?.storage.usagePercentage}%`,
                 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                className="h-full bg-gradient-to-r from-blue-500 to-indigo-400"
+                transition={{ duration: 1.5, ease: "circOut" }}
+                className="h-full bg-linear-to-r from-blue-500 to-indigo-400"
               />
             </div>
-            <p className="text-[10px] text-slate-400 font-medium text-right">
-              {data?.storage.limitHuman} total capacity per mailbox
-            </p>
+            <div className="flex justify-between items-center text-slate-400">
+                <p className="text-[10px] font-medium">
+                  {data?.storage.rawUsed.toLocaleString()} bytes consumed
+                </p>
+                <p className="text-[10px] font-medium text-right">
+                  Capacity: {data?.storage.limitHuman}
+                </p>
+            </div>
           </div>
         </div>
 
-        {/* Decorative Background Icon - Hidden on smallest screens */}
         <div className="absolute -right-10 -bottom-10 opacity-10 hidden sm:block pointer-events-none">
           <Database size={240} />
         </div>

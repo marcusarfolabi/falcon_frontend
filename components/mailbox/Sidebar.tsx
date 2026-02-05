@@ -32,7 +32,7 @@ export default function Sidebar({
     {
       icon: <Inbox size={18} />,
       label: "Inbox",
-      href: "/inbox",
+      href: "/mail/inbox",
       count: counts?.inbox,
       activeColor: "bg-blue-600 shadow-blue-100",
       hoverColor: "hover:text-blue-600",
@@ -40,7 +40,7 @@ export default function Sidebar({
     {
       icon: <Send size={18} />,
       label: "Sent",
-      href: "/sents",
+      href: "/mail/sents",
       count: counts?.sent,
       activeColor: "bg-emerald-600 shadow-emerald-100",
       hoverColor: "hover:text-emerald-600",
@@ -48,7 +48,7 @@ export default function Sidebar({
     {
       icon: <FileText size={18} />,
       label: "Drafts",
-      href: "/drafts",
+      href: "/mail/drafts",
       count: counts?.drafts,
       activeColor: "bg-amber-600 shadow-amber-100",
       hoverColor: "hover:text-amber-600",
@@ -56,7 +56,7 @@ export default function Sidebar({
     {
       icon: <Trash2 size={18} />,
       label: "Trash",
-      href: "/trash",
+      href: "/mail/trash",
       count: counts?.trash,
       activeColor: "bg-red-600 shadow-red-100",
       hoverColor: "hover:text-red-600",
@@ -64,7 +64,7 @@ export default function Sidebar({
     {
       icon: <AlertOctagon size={18} />,
       label: "Junk",
-      href: "/junk",
+      href: "/mail/junk",
       count: counts?.junk,
       activeColor: "bg-orange-500 shadow-orange-100",
       hoverColor: "hover:text-orange-500",
@@ -146,7 +146,7 @@ export default function Sidebar({
             Insights
           </p>
           <Link
-            href="/analytics"
+            href="/mail/analytics"
             className={`flex items-center gap-3 px-3 py-2.5 rounded-t-3xl transition-all text-sm font-bold ${
               pathname === "/analytics"
                 ? "bg-slate-900 text-white shadow-lg"
@@ -181,7 +181,7 @@ export default function Sidebar({
         </div>
         <div className="flex gap-2 px-2 mt-auto pb-4">
           <Link
-            href="/settings"
+            href="/mail/settings"
             className="flex-1 flex items-center cursor-pointer justify-center py-2.5 bg-slate-50 rounded-xl text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all group relative"
             title="Settings"
           >

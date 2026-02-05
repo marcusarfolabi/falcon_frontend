@@ -121,7 +121,7 @@ export default function Topbar() {
                 <MenuItem>
                   {({ active }) => (
                     <Link
-                      href="/settings/account"
+                      href="/mail/settings/account"
                       className={`${
                         active ? "bg-slate-50 text-blue-600" : "text-slate-700"
                       } cursor-pointer flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors`}
@@ -134,7 +134,7 @@ export default function Topbar() {
                 <MenuItem>
                   {({ active }) => (
                     <Link
-                      href="/settings"
+                      href="/mail/settings"
                       className={`${
                         active ? "bg-slate-50 text-blue-600" : "text-slate-700"
                       } cursor-pointer flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors`}

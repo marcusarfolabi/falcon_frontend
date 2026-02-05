@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Sidebar from "@/components/mailbox/Sidebar";
 import Topbar from "@/components/mailbox/Topbar";
 import { Menu, X } from "lucide-react";
@@ -50,11 +50,15 @@ export default function MailboxLayout({
               <Menu size={24} />
             </button>
 
-            <Topbar />
+           <Suspense fallback={<div className="flex-1 h-10 bg-slate-100 rounded-2xl animate-pulse" />}>
+              <Topbar />
+            </Suspense>
           </header>
 
           <main className="flex-1 overflow-y-auto bg-slate-50/30">
-            {children}
+           <Suspense fallback={<div className="p-8 text-slate-400">Loading insight data...</div>}>
+              {children}
+            </Suspense>
           </main>
           <ComposeModal
             isOpen={isComposeOpen}

@@ -126,7 +126,7 @@ export function AddMailboxModal({
       onClose();
     } catch (error: any) {
       const message =
-        error.response?.data?.error ||
+        error.response?.data?.message ||
         error.message ||
         "Failed to create mailbox";
       toast.error(message);
@@ -311,7 +311,7 @@ export function AddMailboxModal({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 mt-4"
+          className="w-full bg-slate-900 cursor-pointer text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 mt-4"
         >
           {isSubmitting ? (
             <Loader2 className="w-4 h-4 animate-spin" />
