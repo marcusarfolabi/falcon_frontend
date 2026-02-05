@@ -23,6 +23,9 @@ export default async function proxy(req: Request) {
   const isOnboardingRoute = pathname === "/account/onboarding";
   const isProtectedRoute = pathname.startsWith("/account");
 
+  const host = req.headers.get("host") || ""; // e.g., "app.falconmail.online"
+  const userRole = extractCookie(cookieHeader, "user_role");
+
   // 1. If logged in, don't allow access to Login/Register
   if (isAuthenticated && isAuthPage) {
     return NextResponse.redirect(new URL("/account", url.origin));
@@ -33,6 +36,21 @@ export default async function proxy(req: Request) {
     const loginUrl = new URL("/login", url.origin);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
+  }
+
+  // 1. HANDLE THE APP SUBDOMAIN (app.falconmail.online)
+  if (host.startsWith("app.")) {
+    // If not logged in or not a USER, kick them back to the main site login
+    if (!isAuthenticated || userRole !== "user") {
+      return NextResponse.redirect(new URL("https://falconmail.online/login", url.origin));
+    }
+    // INTERNALLY rewrite to the (mailbox) folder
+    return NextResponse.rewrite(new URL(`/(mailbox)${pathname}`, req.url));
+  }
+
+  // 2. PROTECT THE ADMIN ROUTE (on main domain)
+  if (pathname.startsWith("/admin") && userRole !== "admin") {
+    return NextResponse.redirect(new URL("/", url.origin));
   }
 
   // 3. If logged in but not onboarded, force Onboarding

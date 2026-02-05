@@ -3,73 +3,40 @@ import { NextResponse } from "next/server";
 export default async function proxy(req: Request) {
   const url = new URL(req.url);
   const pathname = url.pathname;
-
-  // ----- READ COOKIES -----
-  // inside your proxy function
   const cookieHeader = req.headers.get("cookie") || "";
 
-  // FIX: Match the name used in AuthContext
+  // ----- LOGGING FOR DEBUGGING -----
   const token = extractCookie(cookieHeader, "auth_token");
-  const onboarding_completed_raw = extractCookie(
-    cookieHeader,
-    "onboarding_completed"
-  );
-
-  // Fix: Convert string "true" to a real boolean
-  const isOnboarded = onboarding_completed_raw === "true";
+  const role = extractCookie(cookieHeader, "user_role");
+  
+  console.log(`--- Proxy Check: ${pathname} ---`);
+  console.log(`Token Found: ${!!token}`);
+  console.log(`Role Found: ${role}`);
 
   const isAuthenticated = !!token && token.length > 0;
   const isAuthPage = pathname === "/login" || pathname === "/register";
-  const isOnboardingRoute = pathname === "/account/onboarding";
-  const isProtectedRoute = pathname.startsWith("/account");
+  
+  const isProtectedAccount = pathname.startsWith("/account");
+  const isProtectedInbox = pathname.startsWith("/mailer/inbox");
+  const isProtectedAdmin = pathname.startsWith("/admin");
+  const isProtectedRoute = isProtectedAccount || isProtectedInbox || isProtectedAdmin;
 
-  const host = req.headers.get("host") || ""; // e.g., "app.falconmail.online"
-  const userRole = extractCookie(cookieHeader, "user_role");
-
-  // 1. If logged in, don't allow access to Login/Register
   if (isAuthenticated && isAuthPage) {
-    return NextResponse.redirect(new URL("/account", url.origin));
+    console.log("Redirecting authenticated user away from login");
+    if (role === "superadmin") return NextResponse.redirect(new URL("/admin/dashboard", url.origin));
+    if (role === "admin") return NextResponse.redirect(new URL("/account", url.origin));
+    return NextResponse.redirect(new URL("/mailer/inbox", url.origin));
   }
 
-  // 2. If not logged in, force Login for protected routes
   if (!isAuthenticated && isProtectedRoute) {
+    console.log("Unauthorized access to protected route. Redirecting to login.");
     const loginUrl = new URL("/login", url.origin);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // 1. HANDLE THE APP SUBDOMAIN (app.falconmail.online)
-  if (host.startsWith("app.")) {
-    // If not logged in or not a USER, kick them back to the main site login
-    if (!isAuthenticated || userRole !== "user") {
-      return NextResponse.redirect(new URL("https://falconmail.online/login", url.origin));
-    }
-    // INTERNALLY rewrite to the (mailbox) folder
-    return NextResponse.rewrite(new URL(`/(mailbox)${pathname}`, req.url));
-  }
-
-  // 2. PROTECT THE ADMIN ROUTE (on main domain)
-  if (pathname.startsWith("/admin") && userRole !== "admin") {
-    return NextResponse.redirect(new URL("/", url.origin));
-  }
-
-  // 3. If logged in but not onboarded, force Onboarding
-  if (
-    isAuthenticated &&
-    !isOnboarded &&
-    isProtectedRoute &&
-    !isOnboardingRoute
-  ) {
-    return NextResponse.redirect(new URL("/account/onboarding", url.origin));
-  }
-
   return NextResponse.next();
 }
-
-// Precise Matcher
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|public).*)"],
-};
 
 function extractCookie(cookieString: string, name: string): string | null {
   const match = cookieString.match(new RegExp("(^|;\\s*)" + name + "=([^;]*)"));

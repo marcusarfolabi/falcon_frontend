@@ -16,59 +16,40 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  // 1. Hook into Zustand store
   const { user, setAuth, clearAuth } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+ 
+ const login = async (credentials: any) => {
+  const res = await authApi.login(credentials);
+  const { user: userData, token } = res.data;
 
-  // const login = async (credentials: any) => {
-  //     const res = await authApi.login(credentials);
-  //     const { user: userData, token } = res.data;
+  setAuth(token, userData);
 
-  //     // 1. Set Zustand first
-  //     setAuth(token, userData);
+  // FIX: Dynamic domain check
+  // If we are on localhost, don't set the domain attribute or it will fail
+  const isLocal = window.location.hostname === "localhost";
+  const cookieBase = `path=/; SameSite=Lax; Secure`;
+  const domain = isLocal ? "" : "; domain=.falconmail.online";
+  const cookieConfig = `${cookieBase}${domain}`;
 
-  //     // 2. Set Cookies manually for the Middleware
-  //     const cookieConfig = "path=/; SameSite=Lax; Secure";
-  //     document.cookie = `auth_token=${token}; ${cookieConfig}`;
-  //     document.cookie = `onboarding_completed=${userData?.onboarding_completed}; ${cookieConfig}`;
+  console.log("Setting Cookies for Middleware...");
+  
+  document.cookie = `auth_token=${token}; ${cookieConfig}`;
+  document.cookie = `user_role=${userData.role}; ${cookieConfig}`; 
+  document.cookie = `onboarding_completed=${String(userData.onboarding_completed)}; ${cookieConfig}`;
 
-  //     // 3. Navigation
-  //     const hasDomain = userData.organization?.domains?.length > 0;
-  //     const isDone = hasDomain && userData.onboarding_completed;
+  // Verify cookies were actually set in the browser console
+  console.log("Cookies current state:", document.cookie);
 
-  //     if (!isDone) {
-  //         router.push('/account/onboarding');
-  //     } else {
-  //         router.push('/account');
-  //     }
-  // };
-
-  const login = async (credentials: any) => {
-    const res = await authApi.login(credentials);
-    const { user: userData, token } = res.data;
-
-    setAuth(token, userData);
-
-    const cookieConfig =
-      "path=/; SameSite=Lax; Secure; domain=.falconmail.online";
-    document.cookie = `auth_token=${token}; ${cookieConfig}`;
-    document.cookie = `user_role=${userData.role}; ${cookieConfig}`; // Store the role for the middleware
-    document.cookie = `onboarding_completed=${userData?.onboarding_completed}; ${cookieConfig}`;
-
-    const isUser = userData.role === "user";
-    const isAdmin = userData.role === "admin";
-    const isSuperAdmin = userData.role === "superadmin";
-
-    if (isUser) {
-      window.location.href = "/inbox";
-      // window.location.href = "https://app.falconmail.online/inbox";
-    } else if (isAdmin) {
-      router.push("/account");
-    } else if (isSuperAdmin) {
-      router.push("/admin/dashboard");
-    }
-  };
+  if (userData.role === "superadmin") {
+    window.location.href = "/admin/dashboard";
+  } else if (userData.role === "admin") {
+    window.location.href = userData.onboarding_completed ? "/account" : "/account/onboarding";
+  } else {
+    window.location.href = "/mailer/inbox";
+  }
+};
 
   const logout = async () => {
     try {

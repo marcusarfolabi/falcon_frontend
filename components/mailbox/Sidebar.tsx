@@ -106,7 +106,7 @@ export default function Sidebar({
         </p>
 
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = pathname.startsWith(item.href);
           return (
             <div key={item.label} className="space-y-1">
               <Link
