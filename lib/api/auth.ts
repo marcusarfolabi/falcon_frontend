@@ -38,6 +38,6 @@ export const authApi = {
   // Logout
   logout: async () => {
     await authApi.ensureCsrf();
-    return api.post("/api/v1/logout");
+    return api.post("/api/v1/auth/logout");
   },
 };
