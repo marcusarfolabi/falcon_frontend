@@ -103,7 +103,7 @@ export default function EmailDetail(props: { params: Params }) {
         </div>
         <h2 className="text-md font-bold text-slate-900">Message not found</h2>
         <Link
-          href="/inbox"
+          href="/mail/inbox"
           className="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs mt-4"
         >
           Back to Inbox
@@ -122,7 +122,7 @@ export default function EmailDetail(props: { params: Params }) {
         <nav className="sticky top-0 bg-white/90 backdrop-blur-md z-20 px-2 sm:px-4 h-14 border-b border-slate-200 flex items-center justify-between">
           <div className="flex items-center gap-1 sm:gap-2">
             <Link
-              href={`/${folder}`}
+              href={`/mail/${folder}`}
               className="p-2 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors"
               title={`Back to ${folder}`}
             >
