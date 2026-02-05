@@ -22,7 +22,6 @@ export default function AnalyticsPage() {
       </div>
     );
 
-  // Define stats with fallback values to ensure a smooth UI during transitions
   const stats = [
     {
       label: "Total Emails",
