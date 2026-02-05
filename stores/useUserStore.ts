@@ -20,48 +20,54 @@ export const useAuthStore = create<AuthStore>()(
       _hasHydrated: false,
 
       setAuth: (token, user) => set({ token, user }),
+
       clearAuth: () => {
-        // Clear Zustand
+        // 1. Reset the Zustand State
         set({ token: null, user: null });
 
-        // Clear cookies
-        document.cookie.split(";").forEach((cookie) => {
-          const name = cookie.split("=")[0].trim();
-          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-        });
+        // 2. Clear Cookies with Domain Awareness
         if (typeof window !== "undefined") {
-          localStorage.removeItem("auth_token");
+          const hostname = window.location.hostname;
+          const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+          
+          // Determine the domain suffix
+          let domainAttr = "";
+          if (!isLocal) {
+            if (hostname.includes("falconmail.online")) domainAttr = "; domain=.falconmail.online";
+            else if (hostname.includes("iluvmypearls.org")) domainAttr = "; domain=.iluvmypearls.org";
+          }
+
+          const expireBase = "expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+          const cookieNames = ["auth_token", "user_role", "onboarding_completed"];
+
+          cookieNames.forEach((name) => {
+            // Wipe with domain AND without (to be safe)
+            document.cookie = `${name}=; ${expireBase}${domainAttr}`;
+            document.cookie = `${name}=; ${expireBase}`;
+          });
+
+          // 3. Clear Storage 
           sessionStorage.clear();
         }
       },
 
       setHasHydrated: (state) => set({ _hasHydrated: state }),
 
-      updateUser: (userUpdate: Partial<User>) =>
+      updateUser: (userUpdate) =>
         set((state) => ({
-          user: state.user
-            ? { ...state.user, ...userUpdate }
-            : ({ ...userUpdate } as User),
+          user: state.user ? { ...state.user, ...userUpdate } : (userUpdate as User),
         })),
     }),
     {
-      name: "auth_token",
+      name: "auth-storage", // Changed from "auth_token" to avoid name collision with the cookie
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },
-      storage: createJSONStorage(() => {
-        if (typeof window !== "undefined") return localStorage;
-        return {
-          getItem: () => null,
-          setItem: () => {},
-          removeItem: () => {},
-        };
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        token: state.token,
+        user: state.user,
       }),
-      partialize: (state) =>
-        ({
-          token: state.token,
-          user: state.user,
-        } as AuthStore),
     }
   )
 );
