@@ -22,12 +22,12 @@ export function useSendEmail() {
 
   const sendMutation = useMutation({
     mutationFn: async (data: SendEmailData) => {
-      // This is a pure JSON POST request
+
       const response = await api.post('/api/v1/mail/send', data);
       return response.data;
     },
     onSuccess: () => {
-      toast.success('Message sent!');
+      toast.success('Email message sent!');
       queryClient.invalidateQueries({ queryKey: ['sent'] });
       queryClient.invalidateQueries({ queryKey: ['outbox'] });
     },

@@ -138,13 +138,11 @@ export default function MailComposer({
   };
 
   const handleSend = () => {
-    // 1. Validation & Recipient logic (Preserved from your working code)
     const finalTo = [...emails];
     if (inputValue.trim()) finalTo.push(inputValue.trim());
     if (finalTo.length === 0)
       return toast.error("Please add at least one recipient");
 
-    // 2. Attachment Status Check (The loading state you restored)
     if (
       attachments.some((a) => ["uploading", "compressing"].includes(a.status))
     ) {
@@ -161,7 +159,6 @@ export default function MailComposer({
         type: a.file?.type || "image/jpeg",
       }));
 
-    // 4. Build Base Payload
     const payload: any = {
       to: finalTo,
       cc: [...cc, ...(ccInput.trim() ? [ccInput.trim()] : [])].filter(Boolean),
@@ -173,9 +170,7 @@ export default function MailComposer({
       attachments: attachmentData.length > 0 ? attachmentData : undefined,
     };
 
-    // 5. Branching Logic: Reply vs New Message
     if (isReply && initialData?.threadMessageId) {
-      // Add threading metadata for the reply endpoint
       payload.threadMessageId = initialData.threadMessageId;
       payload.references = initialData.references;
 
@@ -190,7 +185,6 @@ export default function MailComposer({
       sendMutation.mutate(payload, {
         onSuccess: () => {
           onSuccess();
-          toast.success("Email sent");
         },
       });
     }
@@ -198,7 +192,6 @@ export default function MailComposer({
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
-      {/* Recipients Fields */}
       <div className="px-4 py-1.5 border-b border-slate-100 flex flex-wrap items-center gap-2">
         <span className="text-sm text-slate-500 w-8 ">To</span>
         {emails.map((email, i) => (
