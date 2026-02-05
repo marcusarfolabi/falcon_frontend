@@ -9,21 +9,28 @@ interface AnalyticsData {
     sentMessages: number;
     spamPercentage: string;
   };
-  storageEstimate: string;
+  storage: {
+    usedHuman: string;
+    limitHuman: string;
+    usagePercentage: number;
+    rawUsed: number;
+    rawLimit: number;
+  };
 }
 
 export function useAnalytics() {
   const TWELVE_HOURS_MS = 1000 * 60 * 60 * 12;
+
   return useQuery({
     queryKey: ["mailbox-analytics"],
-    queryFn: async () => { 
+    queryFn: async () => {
       const response = await api.get<{ data: AnalyticsData }>(
-        "/api/v1/mail/analytics",
+        "/api/v1/mail/analytics"
       );
       return response.data.data;
-    }, 
-    refetchInterval: TWELVE_HOURS_MS, 
-    staleTime: TWELVE_HOURS_MS, 
-    gcTime: TWELVE_HOURS_MS + 1000 * 60 * 30,
+    },
+    refetchInterval: TWELVE_HOURS_MS,
+    staleTime: TWELVE_HOURS_MS,
+    gcTime: TWELVE_HOURS_MS + 1000 * 60 * 30,  
   });
 }

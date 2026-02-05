@@ -1,23 +1,23 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { User, Camera, Check, Loader2, Globe, ShieldCheck } from "lucide-react";
+import { User, Camera, Check, Loader2, Globe, ShieldCheck, Pencil } from "lucide-react";
 import { useAccountSettings } from "@/hooks/useAccountSettings";
 
 export default function AccountSettings() {
   const { identity, updateIdentity, isLoading } = useAccountSettings();
-  
+
   const [tempName, setTempName] = useState("");
   const [isEditingName, setIsEditingName] = useState(false);
   const [userRegion, setUserRegion] = useState("Global");
 
   useEffect(() => {
     if (identity?.name) setTempName(identity.name);
-    
+
     // Detect Region from Browser
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      setUserRegion(tz.split('/')[1]?.replace('_', ' ') || tz);
+      setUserRegion(tz.split("/")[1]?.replace("_", " ") || tz);
     } catch (e) {
       setUserRegion("Detected");
     }
@@ -40,8 +40,12 @@ export default function AccountSettings() {
   return (
     <div className="p-4 sm:p-8 lg:p-12 max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700 pb-32">
       <header className="mb-10 text-center sm:text-left">
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight sm:text-4xl">Account</h1>
-        <p className="text-sm text-slate-500 mt-2 font-medium">Your FalconMail identity and profile.</p>
+        <h1 className="text-3xl font-black text-slate-900 tracking-tight sm:text-4xl">
+          Account
+        </h1>
+        <p className="text-sm text-slate-500 mt-2 font-medium">
+          Your FalconMail identity and profile.
+        </p>
       </header>
 
       {/* Main Profile Card */}
@@ -53,41 +57,50 @@ export default function AccountSettings() {
               <User size={48} className="text-slate-200" />
             </div>
           </div>
-          <button className="absolute bottom-1 right-1 p-2.5 bg-slate-900 text-white rounded-full shadow-lg border-4 border-white hover:bg-blue-600 transition-all active:scale-90">
-            <Camera size={16} />
-          </button>
         </div>
 
         {/* Identity Info */}
         <div className="flex-1 w-full text-center sm:text-left space-y-6">
           <div className="space-y-1">
             {isEditingName ? (
-              <div className="flex items-center justify-center sm:justify-start gap-2">
+              <div className="flex items-center justify-center sm:justify-start gap-2 animate-in fade-in zoom-in-95 duration-200">
                 <input
                   autoFocus
                   value={tempName}
                   onChange={(e) => setTempName(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
-                  className="text-2xl font-black text-slate-900 bg-slate-50 border border-blue-200 rounded-2xl px-4 py-2 outline-none ring-4 ring-blue-50 w-full max-w-62.5"
+                  className="text-2xl font-black text-slate-900 bg-slate-50 border border-blue-200 rounded-2xl px-4 py-2 outline-none ring-4 ring-blue-50 w-full max-w-[250px]"
                 />
-                <button 
+                <button
                   disabled={updateIdentity.isPending}
-                  onClick={handleSaveName} 
-                  className="p-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 disabled:opacity-50 active:scale-95"
+                  onClick={handleSaveName}
+                  className="p-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 disabled:opacity-50 active:scale-95 shrink-0"
                 >
-                  {updateIdentity.isPending ? <Loader2 size={20} className="animate-spin" /> : <Check size={20} strokeWidth={3} />}
+                  {updateIdentity.isPending ? (
+                    <Loader2 size={20} className="animate-spin" />
+                  ) : (
+                    <Check size={20} strokeWidth={3} />
+                  )}
                 </button>
               </div>
             ) : (
-              <h2
+              <div
                 onClick={() => setIsEditingName(true)}
-                className="text-2xl font-black text-slate-900 tracking-tight cursor-pointer hover:text-blue-600 transition-colors inline-block"
+                className="group flex items-center justify-center sm:justify-start gap-3 cursor-pointer"
               >
-                {identity?.name || "Set Display Name"}
-              </h2>
+                <h2 className="text-2xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+                  {identity?.name || "Set Display Name"}
+                </h2>
+                <div className="p-1.5 bg-slate-100 rounded-lg text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
+                  <Pencil size={14} strokeWidth={3} />
+                </div>
+              </div>
             )}
+
             <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
-              <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.15em] bg-blue-50 px-2 py-0.5 rounded-md">Verified Persona</span>
+              <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.15em] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100/50">
+                Verified Persona
+              </span>
             </div>
           </div>
 
@@ -98,7 +111,9 @@ export default function AccountSettings() {
                 <ShieldCheck size={20} />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  Status
+                </p>
                 <p className="text-sm font-bold text-slate-700 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                   Active
@@ -111,7 +126,9 @@ export default function AccountSettings() {
                 <Globe size={20} />
               </div>
               <div className="text-left">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Region</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  Region
+                </p>
                 <p className="text-sm font-bold text-slate-700">{userRegion}</p>
               </div>
             </div>
@@ -122,11 +139,15 @@ export default function AccountSettings() {
       {/* Email Display Card */}
       <div className="p-6 bg-slate-900 rounded-[2.5rem] text-white flex items-center justify-between group overflow-hidden relative shadow-2xl shadow-blue-900/20">
         <div className="relative z-10">
-           <p className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] mb-1">Primary Mailbox</p>
-           <h3 className="text-lg font-bold tracking-tight">{identity?.email}</h3>
+          <p className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] mb-1">
+            Primary Mailbox
+          </p>
+          <h3 className="text-lg font-bold tracking-tight">
+            {identity?.email}
+          </h3>
         </div>
         <div className="absolute -right-4 -bottom-4 text-white/5 group-hover:text-white/10 transition-colors transform rotate-12">
-            <User size={120} />
+          <User size={120} />
         </div>
       </div>
     </div>
