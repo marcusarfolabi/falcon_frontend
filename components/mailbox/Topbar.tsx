@@ -17,13 +17,15 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { Fragment, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";  
+import Link from "next/link";
 
 export default function Topbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
+
+  console.log("user data", user);
 
   const handleLogout = async () => {
     await logout();
@@ -88,7 +90,7 @@ export default function Topbar() {
         <Menu as="div" className="relative inline-block text-left">
           <MenuButton className="ml-2 outline-none group">
             <div className="w-9 h-9 rounded-full cursor-pointer bg-slate-900 flex  bg-linear-to-tr text-slate-100 items-center justify-center font-bold text-md  transition-all">
-              {user?.name?.charAt(0) || "F"}
+              {user?.display_name?.charAt(0) || "F"}
             </div>
           </MenuButton>
 
@@ -104,13 +106,13 @@ export default function Topbar() {
             <MenuItems className="absolute right-0 mt-3 w-72 origin-top-right rounded-3xl bg-white shadow-2xl ring-1 ring-black/5 focus:outline-none z-50 p-2 border border-slate-100">
               <div className="px-4 py-4 text-center border-b border-slate-50">
                 <div className="w-14 h-14 rounded-full bg-slate-900 mx-auto mb-3 flex  bg-linear-to-tr text-slate-100 items-center justify-center font-bold text-2xl  transition-all">
-                  {user?.name?.charAt(0)}
+                  {user?.display_name?.charAt(0)}
                 </div>
                 <p className="text-base font-bold text-slate-900">
-                  {user?.name}
+                  {user?.display_name}
                 </p>
                 <p className="text-xs text-slate-500">
-                  {user?.email || "moureen@falconmail.online"}
+                  {user?.address || "admin@falconmail.online"}
                 </p>
                 <button className="mt-4 px-4 py-1.5 border border-slate-200 rounded-full text-xs cursor-pointer font-semibold hover:bg-slate-50 transition-colors">
                   Manage Account

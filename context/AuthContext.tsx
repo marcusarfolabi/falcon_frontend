@@ -25,17 +25,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { user: userData, token } = res.data;
 
     setAuth(token, userData);
-
-    // If we are on localhost, don't set the domain attribute or it will fail
-    // const isLocal = window.location.hostname === "localhost";
+  
     const hostname = window.location.hostname;
     const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
-    const cookieBase = `path=/; SameSite=Lax; Secure`;
-    // const domain = isLocal ? "" : "; domain=.falconmail.online";
-    // 2. Determine the correct domain for the cookie
+    const cookieBase = `path=/; SameSite=Lax; Secure`; 
     let domain = "";
     if (!isLocal) {
-      // This checks if the current URL contains either of your domains
       if (hostname.includes("falconmail.online")) {
         domain = "; domain=.falconmail.online";
       } else if (hostname.includes("iluvmypearls.org")) {

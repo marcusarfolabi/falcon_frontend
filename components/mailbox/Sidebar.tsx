@@ -168,14 +168,14 @@ export default function Sidebar({
       <div className="m-4 p-4 rounded-t-3xl bg-white border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-black shadow-inner">
-            {user?.name?.charAt(0).toUpperCase()}
+            {user?.display_name?.charAt(0).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-black text-slate-900 truncate uppercase tracking-tighter">
-              {user?.name}
+              {user?.display_name}
             </p>
             <p className="text-[10px] font-bold text-blue-600 truncate uppercase">
-              {user?.role || "Pro Member"}
+              {user?.role || "User Member"}
             </p>
           </div>
         </div>

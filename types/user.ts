@@ -9,6 +9,8 @@ export interface User {
   role: "user" | "admin" | string;
   pending_domain: string | null;
   onboarding_completed: boolean;
+  display_name?: string;
+  address?: string;
   status: "active" | "inactive" | string;
   created_at: string;
   updated_at: string;
