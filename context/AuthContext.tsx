@@ -61,21 +61,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
  const logout = async () => {
   try {
-    // 1. Optional: Call your API to invalidate the session on the server
     await authApi.logout().catch(() => {});
   } finally {
-    // 2. Clear Zustand / Store state
     clearAuth();
 
-    // 3. Clear LocalStorage
-    localStorage.removeItem("auth-storage"); // Or whatever your store key is
-    localStorage.clear(); // Nuclear option
+    localStorage.removeItem("auth-storage"); 
+    localStorage.clear();  
 
-    // 4. Clear Cookies
     const hostname = window.location.hostname;
     const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
     
-    // We determine which domain to clear based on where we are
     let domainAttr = "";
     if (!isLocal) {
       if (hostname.includes("falconmail.online")) {
@@ -85,18 +80,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    // To delete a cookie, set its expiration to a past date
     const cookiesToClear = ["auth_token", "user_role", "onboarding_completed"];
     const expireString = "expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     cookiesToClear.forEach((name) => {
-      // Clear with domain
       document.cookie = `${name}=; ${expireString} ${domainAttr}`;
-      // Clear without domain (just in case it was set locally)
       document.cookie = `${name}=; ${expireString}`;
     });
 
-    // 5. Hard redirect to home to flush all memory/state
     window.location.href = "/";
   }
 };

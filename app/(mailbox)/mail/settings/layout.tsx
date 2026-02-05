@@ -18,31 +18,31 @@ export default function SettingsLayout({
       id: "general",
       label: "General",
       icon: <Settings size={18} />,
-      href: "/settings",
+      href:"/mail/settings",
     },
     // {
     //   id: "security",
     //   label: "Security & Privacy",
     //   icon: <ShieldCheck size={18} />,
-    //   href: "/settings/security",
+    //   href:"/mail/settings/security",
     // },
     {
       id: "account",
       label: "Account",
       icon: <User size={18} />,
-      href: "/settings/account",
+      href:"/mail/settings/account",
     },
     // {
     //   id: "appearance",
     //   label: "Appearance",
     //   icon: <Palette size={18} />,
-    //   href: "/settings/appearance",
+    //   href:"/mail/settings/appearance",
     // },
     // {
     //   id: "notifications",
     //   label: "Notifications",
     //   icon: <Bell size={18} />,
-    //   href: "/settings/notifications",
+    //   href:"/mail/settings/notifications",
     // },
   ];
 
@@ -51,7 +51,7 @@ export default function SettingsLayout({
       {/* Header */}
       <header className="flex items-center justify-between px-4 sm:px-6 h-16 border-b border-slate-100 bg-white/80 backdrop-blur-md shrink-0 z-50">
         <div className="flex items-center gap-3">
-          {/* Hamburger for Mobile */}
+
           <button
             onClick={() => setIsMobileMenuOpen(true)}
             className="p-2 -ml-2 hover:bg-slate-100 rounded-xl md:hidden text-slate-600 transition-colors"
@@ -85,7 +85,7 @@ export default function SettingsLayout({
         {/* Mobile Slide-over Overlay */}
         {isMobileMenuOpen && (
           <div
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] md:hidden animate-in fade-in duration-300"
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-60 md:hidden animate-in fade-in duration-300"
             onClick={() => setIsMobileMenuOpen(false)}
           />
         )}
@@ -93,7 +93,7 @@ export default function SettingsLayout({
         {/* Sidebar (Desktop & Mobile) */}
         <aside
           className={`
-          fixed inset-y-0 left-0 w-72 bg-white z-[70] transform transition-transform duration-500 ease-spring md:relative md:translate-x-0 md:w-64 md:bg-slate-50/30 md:border-r md:border-slate-50 p-4 flex flex-col
+          fixed inset-y-0 left-0 w-72 bg-white z-70 transform transition-transform duration-500 ease-spring md:relative md:translate-x-0 md:w-64 md:bg-slate-50/30 md:border-r md:border-slate-50 p-4 flex flex-col
           ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
         `}
         >
