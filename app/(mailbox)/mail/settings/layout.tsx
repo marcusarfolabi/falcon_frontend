@@ -70,8 +70,8 @@ export default function SettingsLayout({
         </div>
 
         <Link
-          href="/inbox"
-          className="flex items-center gap-1.5 px-4 py-2 bg-slate-50 hover:bg-red-50 text-slate-500 hover:text-red-600 rounded-2xl text-xs font-black transition-all active:scale-95 group"
+          href="/mail/inbox"
+          className="flex items-center gap-1.5 px-4 py-2 bg-red-50 hover:bg-red-50 text-slate-500 hover:text-red-600 rounded-full text-xs font-black transition-all active:scale-95 group"
         >
           <span className="hidden sm:inline">Close</span>
           <X
