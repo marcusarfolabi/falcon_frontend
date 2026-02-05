@@ -64,7 +64,7 @@ export default function Sidebar({
     {
       icon: <AlertOctagon size={18} />,
       label: "Junk",
-      href: "/mail/junk",
+      href: "/mail/junks",
       count: counts?.junk,
       activeColor: "bg-orange-500 shadow-orange-100",
       hoverColor: "hover:text-orange-500",

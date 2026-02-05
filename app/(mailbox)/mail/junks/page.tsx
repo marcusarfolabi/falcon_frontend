@@ -8,7 +8,7 @@ export default function JunkPage() {
 
   return (
     <MailList
-      folderName="Junk"
+      folderName="Junks"
       emails={emails || []}
       totalCount={emails?.length || 0}
       isLoading={isLoading}

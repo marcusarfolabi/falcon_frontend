@@ -26,9 +26,8 @@ export default function EmailDetail(props: { params: Params }) {
 
   const { data: email, isLoading, isError } = useEmailDetails(id);
 
-  const isInbox = folder.toLowerCase() === "inbox";
-  const isTrash = folder.toLowerCase() === "trash";
-  const isDrafts = folder.toLowerCase() === "drafts";
+  const isInbox = folder.toLowerCase() === "inbox"; 
+  const isTrash = folder.toLowerCase() === "trash"; 
 
   if (isLoading) {
     return (
@@ -103,7 +102,7 @@ export default function EmailDetail(props: { params: Params }) {
         </div>
         <h2 className="text-md font-bold text-slate-900">Message not found</h2>
         <Link
-          href="/mail/inbox"
+          href={`/mail/${folder}`}
           className="px-5 py-2 bg-slate-900 text-white rounded-lg text-xs mt-4"
         >
           Back to Inbox

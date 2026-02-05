@@ -8,7 +8,7 @@ export default function SentPage() {
 
   return (
     <MailList
-      folderName="Sent"
+      folderName="Sents"
       emptyTitle="No sent messages"
       emptyMessage="You haven't sent any emails yet."
       emails={emails || []}
