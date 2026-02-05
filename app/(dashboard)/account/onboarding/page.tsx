@@ -108,7 +108,7 @@ export default function OnboardingForm() {
 
     const validateDomain = async () => {
         setError("");
-        let clean = formData.domain.toLowerCase().trim()
+        const clean = formData.domain.toLowerCase().trim()
             .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
 
         setFormData(prev => ({ ...prev, domain: clean }));
@@ -158,7 +158,6 @@ export default function OnboardingForm() {
         setIsProvisioning(true);
         try {
             const data = await preparePayment(formData);
-            // console.log(data);
             setClientSecret(data.clientSecret);
             nextStep();
         } catch (err) {

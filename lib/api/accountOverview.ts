@@ -1,7 +1,6 @@
 import { AccountOverviewResponse } from "@/types/overview";
 import api from "../axios";
 import { BillingOverviewResponse } from "@/types/billing";
-import { MailboxOverviewResponse } from "@/types/mailbox";
 
 /**
  * Fetches dashboard overview stats

@@ -8,11 +8,7 @@ export default async function proxy(req: Request) {
   // ----- LOGGING FOR DEBUGGING -----
   const token = extractCookie(cookieHeader, "auth_token");
   const role = extractCookie(cookieHeader, "user_role");
-  
-  console.log(`--- Proxy Check: ${pathname} ---`);
-  console.log(`Token Found: ${!!token}`);
-  console.log(`Role Found: ${role}`);
-
+   
   const isAuthenticated = !!token && token.length > 0;
   const isAuthPage = pathname === "/login" || pathname === "/register";
   
@@ -22,14 +18,12 @@ export default async function proxy(req: Request) {
   const isProtectedRoute = isProtectedAccount || isProtectedInbox || isProtectedAdmin;
 
   if (isAuthenticated && isAuthPage) {
-    console.log("Redirecting authenticated user away from login");
     if (role === "superadmin") return NextResponse.redirect(new URL("/admin/dashboard", url.origin));
     if (role === "admin") return NextResponse.redirect(new URL("/account", url.origin));
     return NextResponse.redirect(new URL("/mailer/inbox", url.origin));
   }
 
   if (!isAuthenticated && isProtectedRoute) {
-    console.log("Unauthorized access to protected route. Redirecting to login.");
     const loginUrl = new URL("/login", url.origin);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);

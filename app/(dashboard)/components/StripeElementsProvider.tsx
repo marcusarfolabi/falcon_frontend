@@ -17,11 +17,7 @@ export default function StripeElementsProvider({
     prevStep: any;
     children: ReactNode;
 }) {
-    useEffect(() => {
-        // console.log("Stripe Provider Mounted");
-        // console.log("Client Secret Length:", clientSecret?.length);
-        // console.log("Publishable Key Check:", !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
+    useEffect(() => { 
         if (!clientSecret) {
             console.error("Your subscription is active. You can go back to change your subscription package");
         }

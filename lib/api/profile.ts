@@ -11,6 +11,6 @@ export const profileApi = {
 
   getAuthUser: async () => {
     await authApi.ensureCsrf();
-    return api.get("/api/v1/user");
+    return api.get("/api/v1/me");
   },
 };

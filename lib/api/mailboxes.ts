@@ -25,7 +25,7 @@ export async function getMailboxOverview(
   offset: number,
 ): Promise<MailboxOverviewResponse> {
   const response = await api.get<MailboxOverviewResponse>(
-    `/api/v1/account-mailboxes?limit=${limit}&offset=${offset}`,
+    `/api/v1/account/mailboxes?limit=${limit}&offset=${offset}`,
   );
   return response.data;
 }
@@ -37,7 +37,7 @@ export async function addMailBox(
   payload: CreateMailboxPayload,
 ): Promise<CreateMailboxResponse> {
   const response = await api.post<CreateMailboxResponse>(
-    "/api/v1/create-mailbox",
+    "/api/v1/onboarding/provision",
     payload,
   );
   return response.data;

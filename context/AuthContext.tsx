@@ -26,21 +26,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   setAuth(token, userData);
 
-  // FIX: Dynamic domain check
   // If we are on localhost, don't set the domain attribute or it will fail
   const isLocal = window.location.hostname === "localhost";
   const cookieBase = `path=/; SameSite=Lax; Secure`;
   const domain = isLocal ? "" : "; domain=.falconmail.online";
   const cookieConfig = `${cookieBase}${domain}`;
 
-  console.log("Setting Cookies for Middleware...");
-  
+
   document.cookie = `auth_token=${token}; ${cookieConfig}`;
   document.cookie = `user_role=${userData.role}; ${cookieConfig}`; 
   document.cookie = `onboarding_completed=${String(userData.onboarding_completed)}; ${cookieConfig}`;
-
-  // Verify cookies were actually set in the browser console
-  console.log("Cookies current state:", document.cookie);
 
   if (userData.role === "superadmin") {
     window.location.href = "/admin/dashboard";
