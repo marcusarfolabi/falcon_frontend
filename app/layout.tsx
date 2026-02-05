@@ -29,8 +29,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </LayoutWrapper>
 
-        <Toaster />
-      </body>
+<Toaster 
+          position="bottom-left"
+          toastOptions={{
+            // Global styles for all toasts
+            style: {
+              background: '#0f172a', // Slate 900
+              color: '#fff',
+              borderRadius: '8px',
+              fontSize: '14px',
+            },
+            // Specific styles for success/error if needed
+            success: {
+              iconTheme: {
+                primary: '#10b981', // Emerald 500
+                secondary: '#fff',
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: '#ef4444', // Red 500
+                secondary: '#fff',
+              },
+            },
+          }}
+        />      </body>
     </html>
   );
 }
