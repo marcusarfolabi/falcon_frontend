@@ -194,7 +194,7 @@ export default function MailList({
             <h3 className="text-lg font-bold text-slate-800 mt-4">
               {emptyTitle}
             </h3>
-            <p className="text-slate-400 text-xs max-w-[200px] mx-auto mt-1">
+            <p className="text-slate-400 text-xs max-w-50 mx-auto mt-1">
               {emptyMessage}
             </p>
           </div>
@@ -202,7 +202,7 @@ export default function MailList({
           emails.map((email) => (
             <Link
               key={email.id}
-              href={`/${folderName.toLowerCase()}/${email.id}`}
+              href={`/mail/${folderName.toLowerCase()}/${email.id}`}
               className={`group flex items-center px-3 sm:px-4 py-3 border-b border-slate-50 transition-all border-l-4 ${config.border} ${
                 !email.read ? "bg-white" : "bg-slate-50/40 opacity-80"
               } hover:bg-blue-50/40`}
@@ -253,7 +253,7 @@ export default function MailList({
               </div>
 
               {/* Time / Actions */}
-              <div className="ml-2 flex items-center min-w-[50px] justify-end shrink-0">
+              <div className="ml-2 flex items-center min-w-12.5 justify-end shrink-0">
                 <span
                   className={`text-[10px] font-bold whitespace-nowrap group-hover:hidden ${!email.read ? "text-blue-600" : "text-slate-400"}`}
                 >
