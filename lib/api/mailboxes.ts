@@ -37,7 +37,7 @@ export async function addMailBox(
   payload: CreateMailboxPayload,
 ): Promise<CreateMailboxResponse> {
   const response = await api.post<CreateMailboxResponse>(
-    "/api/v1/onboarding/provision",
+    "/api/v1/mail/provision",
     payload,
   );
   return response.data;
