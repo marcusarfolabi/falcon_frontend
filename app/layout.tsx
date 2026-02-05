@@ -12,6 +12,8 @@ const instrumentSans = Instrument_Sans({
 export const metadata: Metadata = {
   title: "FalconMail | Sovereign JMAP Infrastructure",
   description: "Next-gen mail engine powered by Rust and Stalwart.",
+  manifest: "/manifest.json",
+  themeColor: "#0f172a",
 };
 
 export default function RootLayout({
