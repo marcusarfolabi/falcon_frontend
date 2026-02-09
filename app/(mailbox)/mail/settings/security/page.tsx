@@ -23,7 +23,7 @@ export default function SecuritySettings() {
       </header>
 
       {/* Fancy Security Score Card */}
-      <div className="mb-10 p-6 bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] text-white shadow-2xl shadow-blue-200/50 relative overflow-hidden group">
+      <div className="mb-10 p-6 bg-linear-to-br from-slate-900 to-slate-800 rounded-4xl text-white shadow-2xl shadow-blue-200/50 relative overflow-hidden group">
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">

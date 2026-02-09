@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Settings, X, Menu, ChevronRight, User } from "lucide-react";
+import { Settings, X, Menu, ChevronRight, User, ShieldCheck } from "lucide-react";
 
 export default function SettingsLayout({
   children,
