@@ -7,7 +7,7 @@ export function useJunk() {
     queryKey: ["junk"],
     queryFn: async () => {
       const { data } = await api.get("/api/v1/mail/junk");
-      const list = Array.isArray(data) ? data : [];
+      const list = Array.isArray(data.emails) ? data.emails : [];
 
       return list.map((email: any) => ({
         id: email.id,
@@ -15,9 +15,9 @@ export function useJunk() {
         subject: email.subject || "(No Subject)",
         preview: email.preview || "",
         time: formatEmailDate(email.receivedAt),
-        read: true, 
-        hasAttachments: !!(email.attachments && email.attachments.length > 0),
+        read: true,
+        hasAttachments: email.hasAttachment || false,
       }));
     },
   });
-} 
+}
