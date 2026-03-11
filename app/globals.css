@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme inline {
-    /* Brand Colors */
-    --color-brand-dark: #0F172A;
-    --color-brand-primary: #2D5BFF;
-    --color-brand-accent: #00D4FF;
-    --color-brand-soft: #F1F5F9;
+    --color-brand-dark: #0f172a;
+    --color-brand-primary: #2d5bff;
+    --color-brand-accent: #00d4ff;
+    --color-brand-soft: #f1f5f9;
+    --color-border: var(--border);
+    --color-ring: var(--ring);
 
-    /* Animations */
     --animate-text-streak: streak 2s ease-in-out infinite;
     --animate-light-bar: light 3s linear infinite;
     --animate-blob: blob 7s infinite;
@@ -16,11 +16,11 @@
 
         0%,
         100% {
-            color: #0f172a;
+            color: var(--color-brand-dark);
         }
 
         50% {
-            color: #2563eb;
+            color: var(--color-brand-primary);
         }
     }
 
@@ -55,24 +55,37 @@
 
 :root {
     --background: #ffffff;
-    --foreground: #171717;
-    --font-instrument: var(--font-instrument);
+    --foreground: #0f172a;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(15, 23, 42, 0.1);
+    --toast-bg: #0f172a;
+    --border: rgba(15, 23, 42, 0.1);
+    --ring: #2D5BFF;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
+.dark {
+    --background: #030712;
+    --foreground: #f8fafc;
+    --border: rgba(255, 255, 255, 0.1);
+    --ring: #2D5BFF;
+    --card-bg: rgba(30, 41, 59, 0.5);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --toast-bg: #1e293b;
 }
 
-/* Base Styles */
 @layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
     body {
         background-color: var(--background);
         color: var(--foreground);
         font-family: var(--font-instrument), sans-serif !important;
         overflow-x: hidden;
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
     }
 
     h1,
@@ -82,47 +95,40 @@
     .font-black {
         font-family: var(--font-instrument), sans-serif !important;
         letter-spacing: -0.04em;
+        @apply font-bold;
     }
+
     ::-webkit-scrollbar {
-    width: 6px; /* Very thin */
-    height: 6px;
-  }
+        width: 6px;
+    }
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
-  }
-
-  /* Firefox */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: theme('colors.slate.200') transparent;
-  }
+    ::-webkit-scrollbar-thumb {
+        @apply bg-slate-300 dark:bg-slate-800 rounded-full hover:bg-slate-400 dark:hover:bg-slate-700 transition-colors;
+    }
 }
 
-.input{
-    @apply w-full bg-slate-200 border-2 border-transparent rounded-xl md:rounded-2xl pl-12 md:pl-14 pr-12 py-3.5 md:py-4 text-slate-900 font-bold placeholder:text-slate-300 focus:bg-white focus:border-blue-500/10 focus:ring-2 focus:ring-blue-500/50 transition-all outline-none text-[10px] sm:text-sm md:text-base;
-}
+@layer components {
+    .input {
+        @apply w-full bg-slate-100 dark:bg-slate-900 border-2 border-transparent rounded-xl md:rounded-2xl pl-12 md:pl-14 pr-12 py-3.5 md:py-4 text-slate-900 dark:text-slate-100 font-medium placeholder:text-slate-400 focus:bg-white dark:focus:bg-slate-800 focus:border-brand-primary/30 focus:ring-4 focus:ring-brand-primary/10 transition-all outline-none text-[14px] md:text-base;
+    }
 
-.tiptap {
-  outline: none;
-}
+    .tiptap {
+        @apply outline-none min-h-[150px] py-4;
 
-.tiptap ul {
-  list-style-type: disc !important;
-  padding-left: 1.5rem !important;
-  margin: 1rem 0 !important;
-}
+        & ul {
+            @apply list-disc pl-6 my-4 space-y-2;
+        }
 
-.tiptap ol {
-  list-style-type: decimal !important;
-  padding-left: 1.5rem !important;
-  margin: 1rem 0 !important;
-}
+        & ol {
+            @apply list-decimal pl-6 my-4 space-y-2;
+        }
 
-.tiptap li {
-  display: list-item !important;
-} 
+        & li {
+            @apply leading-relaxed;
+        }
+    }
+}

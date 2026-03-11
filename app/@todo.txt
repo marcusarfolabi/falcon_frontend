@@ -1,0 +1,17 @@
+Navbar.tsx: Floating glassmorphism header.
+
+Hero.tsx: The main headline with the "Glow Hub" central graphic.
+
+TrustedBy.tsx: A simple grayscale logo marquee.
+
+FeatureGrid.tsx: The Bento-style grid (Authentication section).
+
+IntegrationSection.tsx: The "Code Your Vision" section with the 3x2 grid of tech icons.
+
+AutomationShowcase.tsx: The two-column "Email Automation" cards.
+
+Testimonials.tsx: The masonry-style quote grid.
+
+CTA.tsx: The bottom "Ready to Transform" section.
+
+Footer.tsx: Links and social icons.
