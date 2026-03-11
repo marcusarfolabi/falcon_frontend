@@ -9,17 +9,15 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  // Prevents hydration mismatch
   useEffect(() => setMounted(true), []);
 
-  if (!mounted)
-    return (
-      <div className="w-[100px] h-9 bg-slate-100 dark:bg-slate-800/50 rounded-full animate-pulse" />
-    );
+  if (!mounted) return <div className="w-[110px] h-9 bg-muted rounded-full animate-pulse" />;
 
   const options = [
-    { id: "light", icon: Sun },
-    { id: "system", icon: Monitor },
-    { id: "dark", icon: Moon },
+    { id: "light", icon: Sun, label: "Light" },
+    { id: "dark", icon: Moon, label: "Dark" },
+    { id: "system", icon: Monitor, label: "System" },
   ];
 
   return (
@@ -32,17 +30,19 @@ export function ThemeToggle() {
           <button
             key={opt.id}
             onClick={() => setTheme(opt.id)}
-            className={`relative p-1.5 rounded-full transition-colors z-10 ${
-              isActive
-                ? "text-brand-primary dark:text-white"
-                : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-            }`}
+            className={`relative p-2 rounded-full transition-all z-10 outline-none
+              ${isActive
+                ? "text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+              }`}
+            aria-label={`Switch to ${opt.label} mode`}
           >
-            <Icon size={14} />
+            <Icon size={14} strokeWidth={2.5} />
+
             {isActive && (
               <motion.div
                 layoutId="activeTheme"
-                className="absolute inset-0 bg-white dark:bg-brand-primary rounded-full -z-10 shadow-sm"
+                className="absolute inset-0 bg-secondary rounded-full -z-10 border border-border/50"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}

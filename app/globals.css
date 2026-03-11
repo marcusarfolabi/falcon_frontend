@@ -7,6 +7,9 @@
     --color-brand-soft: #f1f5f9;
     --color-border: var(--border);
     --color-ring: var(--ring);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card-bg);
 
     --animate-text-streak: streak 2s ease-in-out infinite;
     --animate-light-bar: light 3s linear infinite;
@@ -64,7 +67,7 @@
 }
 
 .dark {
-    --background: #030712;
+    --background: #020617;
     --foreground: #f8fafc;
     --border: rgba(255, 255, 255, 0.1);
     --ring: #2D5BFF;
@@ -117,7 +120,7 @@
     }
 
     .tiptap {
-        @apply outline-none min-h-[150px] py-4;
+        @apply outline-none min-h-37.5 py-4;
 
         & ul {
             @apply list-disc pl-6 my-4 space-y-2;
