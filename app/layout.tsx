@@ -3,7 +3,7 @@ import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import LayoutWrapper from "./LayoutWrapper";
-import { ThemeProvider } from "@/components/theme-provider"; 
+import { ThemeProvider } from "@/components/theme-provider";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -30,24 +30,20 @@ export default function RootLayout({
         className={`${instrumentSans.variable} font-sans antialiased selection:bg-blue-100 dark:selection:bg-blue-900 transition-colors duration-300 min-h-screen overflow-x-hidden max-w-[100vw]`}
       >
         <ThemeProvider>
-          {/* Background Layer */}
           <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-            {/* Ambient Glow */}
             <div
               className="absolute top-[-10%] left-[-10%] w-[70%] h-[60%] 
                          bg-blue-50/50 dark:bg-blue-900/20 
                          rounded-full blur-[120px]"
             />
 
-            {/* Grid Pattern Fix: added bg-repeat and explicit bounds */}
             <div
               className="absolute inset-0 bg-[url('https://play.tailwindcss.com/img/grid.svg')] 
-                         bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]
+                         bg-center`mask-[linear-gradient(180deg,white,rgba(255,255,255,0))]
                          opacity-10 dark:opacity-20 invert dark:invert-0 bg-repeat"
             />
           </div>
 
-          {/* Main Content Wrapper */}
           <div className="relative z-10 w-full overflow-x-hidden">
             <LayoutWrapper>{children}</LayoutWrapper>
           </div>
