@@ -96,7 +96,7 @@ export default function Integration() {
 
                     {/* 1. CHANNEL FEED */}
                     <div className="lg:col-span-3 flex flex-col gap-3 overflow-y-auto pr-2 scrollbar-hide relative z-10">
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-2">Social Inlets</h4>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-2">Social Inlets</span>
                         {PLATFORMS.map((p, i) => (
                             <div key={i} className="flex items-center cursor-pointer gap-3 p-4 rounded-2xl border border-border bg-card shadow-sm group hover:border-brand-primary/30 transition-all">
                                 <div className={`${p.color}`}>{p.icon}</div>

@@ -42,7 +42,7 @@ export default function Footer() {
             </p>
 
             <div className="mt-4">
-              <h5 className="text-foreground font-bold text-sm mb-4">Get in Touch with Us!</h5>
+              <p className="text-foreground font-bold text-sm mb-4">Get in Touch with Us!</p>
               <div className="flex gap-3">
                 {/* 2. Map through the socialLinks array properly */}
                 {socialLinks.map(({ Icon, href, label }) => (
@@ -65,7 +65,7 @@ export default function Footer() {
           <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <FooterGroup title="Integrations" links={["Email", "Webchat", "Facebook", "WhatsApp", "Instagram"]} />
             <FooterGroup title="Resources" links={["Pricing", "Integrations", "Blog"]} />
-            <FooterGroup title="Company" links={["Contact"]} />
+            <FooterGroup title="Company" links={["Contact Us"]} />
           </div>
         </div>
 
@@ -88,7 +88,7 @@ export default function Footer() {
 function FooterGroup({ title, links }: { title: string; links: string[] }) {
   return (
     <div className="flex flex-col gap-4">
-      <h4 className="text-foreground font-bold text-sm">{title}</h4>
+      <h3 className="text-foreground font-bold text-sm">{title}</h3>
       <ul className="flex flex-col gap-2">
         {links.map((link) => {
           const href = `/${link.toLowerCase().replace(/\s+/g, "-")}`;
