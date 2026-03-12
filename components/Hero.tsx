@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import {
-    Mail, MessageSquare, Shield, Bird,
+    Mail, Bird,
     Instagram, Facebook, PhoneCall, Bot,
     MessageCircle,
     Send,
@@ -33,7 +33,7 @@ export default function Hero() {
                 </h1>
             </div>
 
-            <div className="relative w-full max-w-5xl h-112.5 flex items-center justify-center">
+            <div className="relative w-full max-w-5xl h-100.5 flex items-center justify-center">
 
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 400">
                     <defs>
@@ -79,6 +79,16 @@ export default function Hero() {
                     <Bird className="w-10 h-10 text-brand-primary" />
                     <div className="absolute inset-0 bg-brand-primary/20 blur-xl rounded-full animate-pulse" />
                 </div>
+            </div>
+
+            <div className="mt-16 mb-20 flex flex-col sm:flex-row items-center gap-4 z-20">
+                <Link
+                    href="/signup"
+                    className="group relative px-8 py-4 bg-brand-primary text-white font-bold rounded-2xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(45,91,255,0.4)] hover:-translate-y-1"
+                >
+                    <span className="relative z-10">Get Started</span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                </Link>
             </div>
 
             <div className="mt-24 flex flex-col items-center gap-10">
