@@ -56,7 +56,6 @@ export default function Pricing() {
         <section id="pricing" className="py-24 bg-background relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-                {/* Header & Electric Toggle */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-8">
                         Predictable <span className="text-brand-primary">Pricing.</span>
@@ -66,13 +65,13 @@ export default function Pricing() {
                         <div className="flex items-center gap-4 bg-card border border-border p-1.5 rounded-2xl relative">
                             <button
                                 onClick={() => setBillingCycle("monthly")}
-                                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all relative z-10 ${billingCycle === "monthly" ? "text-white" : "text-muted-foreground"}`}
+                                className={`px-6 py-2 rounded-xl text-[10px] cursor-pointer font-black uppercase tracking-widest transition-all relative z-10 ${billingCycle === "monthly" ? "text-white" : "text-muted-foreground"}`}
                             >
                                 Monthly
                             </button>
                             <button
                                 onClick={() => setBillingCycle("yearly")}
-                                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all relative z-10 ${billingCycle === "yearly" ? "text-white" : "text-muted-foreground"}`}
+                                className={`px-6 py-2 rounded-xl text-[10px] cursor-pointer font-black uppercase tracking-widest transition-all relative z-10 ${billingCycle === "yearly" ? "text-white" : "text-muted-foreground"}`}
                             >
                                 Yearly
                             </button>
@@ -92,7 +91,6 @@ export default function Pricing() {
                     </div>
                 </div>
 
-                {/* Pricing Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
                     {PLANS.map((plan, i) => {
                         const displayPrice = billingCycle === "yearly"
