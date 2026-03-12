@@ -1,5 +1,5 @@
 {
-  "name": "FalconMail | Sovereign JMAP Infrastructure",
+  "name": "FalconMail",
   "short_name": "FalconMail",
   "description": "Next-gen sovereign mail engine powered by Rust and Stalwart.",
   "start_url": "/",
