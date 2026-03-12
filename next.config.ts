@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = { 
+const nextConfig: NextConfig = {
   images: {
-    dangerouslyAllowSVG: true, 
+    dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "www.honourworld.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ix-marketing.imgix.net",
         pathname: "/**",
       },
     ],
