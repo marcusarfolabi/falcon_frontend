@@ -87,7 +87,6 @@ export default function Integration() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:h-[700px] relative">
 
-                    {/* SPARK OVERLAYS (Visual wiring between cols) */}
                     <div className="hidden lg:block absolute top-1/2 left-[23%] w-[10%] h-[2px] z-0">
                         <ElectricWire delay={0} />
                     </div>
@@ -99,7 +98,7 @@ export default function Integration() {
                     <div className="lg:col-span-3 flex flex-col gap-3 overflow-y-auto pr-2 scrollbar-hide relative z-10">
                         <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/40 mb-2">Social Inlets</h4>
                         {PLATFORMS.map((p, i) => (
-                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl border border-border bg-card shadow-sm group hover:border-brand-primary/30 transition-all">
+                            <div key={i} className="flex items-center cursor-pointer gap-3 p-4 rounded-2xl border border-border bg-card shadow-sm group hover:border-brand-primary/30 transition-all">
                                 <div className={`${p.color}`}>{p.icon}</div>
                                 <span className="text-[11px] font-bold">{p.name}</span>
                                 <div className="ml-auto w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
@@ -107,7 +106,6 @@ export default function Integration() {
                         ))}
                     </div>
 
-                    {/* 2. CORE INBOX (The Processor) */}
                     <div className="lg:col-span-6 border border-border rounded-[2.5rem] bg-card overflow-hidden flex flex-col shadow-2xl relative z-10">
                         <div className="absolute top-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-brand-primary to-transparent animate-light-bar" />
 

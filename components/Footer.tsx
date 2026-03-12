@@ -53,7 +53,7 @@ export default function Footer() {
             <FooterGroup title="Solutions" links={["Pricing", "Integrations"]} />
             <FooterGroup title="Integrations" links={["Email", "Webchat", "Facebook", "WhatsApp", "Instagram",]} />
             <FooterGroup title="Resources" links={["Blog", "Changelog", "Newsletter"]} />
-            <FooterGroup title="Company" links={["About", "Careers", "Contact"]} />
+            <FooterGroup title="Company" links={["About", "Careers", "Contact"]}  />
           </div>
         </div>
 
@@ -61,30 +61,36 @@ export default function Footer() {
         <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground/60 font-medium">
           <div className="flex flex-col gap-1">
             <p>Copyright © {currentYear} Ayokah Services Limited. All right reserved.</p>
-            <p>360 Surakarta Ave #6071, East Java, SR00382, LD. EIN: 400329347</p>
+            <p>360 Surakarta Ave #6071, East Java, SR00382, LN. EIN: 400329347</p>
           </div>
           <div className="flex gap-6 items-end">
-            <a href="#" className="hover:text-foreground transition-colors">Terms and Conditions</a>
-            <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-foreground transition-colors">Terms and Conditions</a>
+            <a href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</a>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-
 function FooterGroup({ title, links }: { title: string; links: string[] }) {
   return (
     <div className="flex flex-col gap-4">
       <h4 className="text-foreground font-bold text-sm">{title}</h4>
       <ul className="flex flex-col gap-2">
-        {links.map((link) => (
-          <li key={link}>
-            <a href="#" className="text-sm hover:text-brand-primary transition-colors">
-              {link}
-            </a>
-          </li>
-        ))}
+        {links.map((link) => { 
+          const href = `/${link.toLowerCase().replace(/\s+/g, "-")}`;
+
+          return (
+            <li key={link}>
+              <Link
+                href={href}
+                className="text-sm hover:text-brand-primary transition-colors"
+              >
+                {link}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
