@@ -52,6 +52,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://falconmail.online',
   },
+  other: {
+    preconnect: "https://play.tailwindcss.com"
+  }
 };
 
 export const viewport: Viewport = {

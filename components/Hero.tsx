@@ -82,7 +82,7 @@ export default function Hero() {
             </div>
 
             <div className="mt-24 flex flex-col items-center gap-10">
-                <span className="text-foreground/30 font-black uppercase tracking-[0.4em] text-[10px]">
+                <span className="text-foreground/60 font-black uppercase tracking-[0.4em] text-[10px]">
                     Trusted by innovative companies
                 </span>
 
@@ -109,6 +109,7 @@ export default function Hero() {
                                         alt={company.name}
                                         width={40}
                                         height={40}
+                                        priority
                                         className="h-10 w-auto min-w-10 block object-contain"
                                     />
                                     <span className="text-foreground font-bold tracking-tight text-lg md:text-xl">
@@ -162,7 +163,7 @@ function CurvedLine({ startX, startY, endX, endY, isRight = false, delay = 0 }: 
 
 function Node({ icon, className }: { icon: any; className?: string }) {
     return (
-        <div className={`w-12 h-12 md:w-16 md:h-16 cursor-pointer rounded-2xl bg-[#111] border border-white/10 flex items-center justify-center text-white/80 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all hover:border-brand-primary hover:text-brand-primary hover:shadow-[0_0_20px_rgba(45,91,255,0.2)] ${className}`}>
+        <div role="img" className={`w-12 h-12 md:w-16 md:h-16 cursor-pointer rounded-2xl bg-[#111] border border-white/10 flex items-center justify-center text-white/80 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all hover:border-brand-primary hover:text-brand-primary hover:shadow-[0_0_20px_rgba(45,91,255,0.2)] ${className}`}>
             {icon}
         </div>
     );
