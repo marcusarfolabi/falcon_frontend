@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="md:col-span-4 flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2 group">
               <Bird className="w-5 h-5 text-brand-primary" />
-              <span className="text-xl font-bold tracking-tight hidden sm:block text-foreground">
+              <span className="text-xl font-bold tracking-tight text-foreground">
                 Falcon<span className="text-brand-primary">Mail</span>
               </span>
             </Link>
