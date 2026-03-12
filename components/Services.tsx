@@ -1,134 +1,167 @@
 "use client";
-import React from 'react';
-import { motion } from 'framer-motion';
-import {
-    Zap,          // JMAP Speed
-    Workflow,     // Server-Side Rules (Sieve)
-    Layers,       // Distributed Storage (S3)
-    Command,      // Full-Text Search
-    Fingerprint,  // Guardian Protocol (DMARC/Security)
-    ArrowRight
-} from 'lucide-react';
+import { Lock, Bird, Globe, Sparkles, Phone } from "lucide-react";
+import { motion, Variants } from "framer-motion";
 
-const solutions = [
-    {
-        title: "JMAP Instant Sync",
-        desc: "Experience the successor to IMAP. Real-time push notifications and zero-latency syncing that's light on your battery.",
-        icon: Zap,
-        color: "bg-blue-600",
-        shadow: "shadow-blue-200",
-        size: "md:col-span-2 md:row-span-2"
-    },
-    {
-        title: "Server-Side Intelligence",
-        desc: "Advanced Sieve-based filtering. Organize, tag, and route your mail at the source, not on your device.",
-        icon: Workflow,
-        color: "bg-slate-900",
-        shadow: "shadow-slate-200",
-        size: "md:col-span-2"
-    },
-    {
-        title: "Distributed Edge Storage",
-        desc: "Immutable S3-backed storage ensures your data is mirrored across regions and never lost.",
-        icon: Layers,
-        color: "bg-indigo-600",
-        shadow: "shadow-indigo-200",
-        size: "md:col-span-1"
-    },
-    {
-        title: "Lightning Search",
-        desc: "A proprietary Rust indexing engine that finds one email in a million in under 10ms.",
-        icon: Command,
-        color: "bg-cyan-500",
-        shadow: "shadow-cyan-200",
-        size: "md:col-span-1"
-    },
-    {
-        title: "Guardian Reputation",
-        desc: "Automated DMARC and BIMI management. Protect your domain's identity and ensure 100% deliverability.",
-        icon: Fingerprint,
-        color: "bg-slate-800",
-        shadow: "shadow-slate-300",
-        size: "md:col-span-2"
-    }
-];
-export default function Solutions() {
+export default function Services() {
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+        },
+    };
+
+    const itemVariants: Variants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                duration: 0.5,
+                ease: "easeOut"
+            },
+        },
+    };
+
     return (
-        <section id="solutions" className="py-24 lg:py-32 bg-[#F8FAFC] overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <section id="solutions" className="py-24 bg-background transition-colors duration-500 overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6">
 
-                {/* Section Header */}
-                <div className="mb-16 md:mb-24 max-w-3xl">
-                    <motion.h2
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="text-sm font-black uppercase tracking-[0.3em] text-blue-600 mb-4"
-                    >
-                        The Falcon Suite
-                    </motion.h2>
-                    <motion.h3
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight"
-                    >
-                        Built for speed. <br />
-                        <span className="text-slate-400">Architected for absolute privacy.</span>
-                    </motion.h3>
-                </div>
-
-                {/* Bento Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[240px]">
-                    {solutions.map((item, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className={`group relative rounded-[2.5rem] p-8 overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-white bg-white shadow-sm flex flex-col justify-between ${item.size}`}
-                        >
-                            {/* Background Accent (Visible on Hover) */}
-                            <div className={`absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${item.color}`} />
-
-                            <div className="relative z-10">
-                                <div className={`${item.color} ${item.shadow} w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-500`}>
-                                    <item.icon className="w-7 h-7" />
-                                </div>
-                                <h4 className="text-2xl font-bold text-slate-900 mb-3">{item.title}</h4>
-                                <p className="text-slate-500 font-medium leading-relaxed max-w-70">
-                                    {item.desc}
-                                </p>
-                            </div>
-
-                            <div className="relative z-10 flex items-center gap-2 text-sm font-bold text-blue-600 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2.5 group-hover:translate-x-0">
-                                Learn more <ArrowRight className="w-4 h-4" />
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {/* Bottom CTA for Section */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-20 flex flex-col sm:flex-row items-center justify-between p-8 md:p-12 rounded-[3rem] bg-slate-900 text-white relative overflow-hidden"
+                    className="text-center mb-16"
                 >
-                    <div className="relative z-10">
-                        <h4 className="text-3xl font-bold mb-2">Ready to switch?</h4>
-                        <p className="text-slate-400 text-lg">Migrate your entire team in less than 10 minutes.</p>
-                    </div>
-                    <button className="mt-8 sm:mt-0 relative z-10 bg-blue-600 hover:bg-white hover:text-blue-600 text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 flex items-center gap-2 group">
-                        Start Migrating
-                        <Zap className="w-5 h-5 fill-current group-hover:animate-pulse" />
-                    </button>
-                    {/* Subtle Decorative Gradient */}
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[100px] -mr-64 -mt-64" />
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+                        One Engine. <span className="text-brand-primary">Every Channel.</span>
+                    </h2>
+                    <p className="text-muted-foreground/60 text-sm tracking-wide">
+                        Omnichannel Sovereignty • AI-Rich Intelligence • JMAP Speed
+                    </p>
                 </motion.div>
 
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                >
+
+                    <motion.div variants={itemVariants} className="bg-secondary/10 dark:bg-card rounded-2xl p-8 border border-border/40 flex flex-col h-150 relative overflow-hidden group">
+                        <div className="flex justify-between items-start mb-4">
+                            <h3 className="text-xl font-bold text-foreground">Omni-Sync Core</h3>
+                            <Globe className="text-brand-primary w-5 h-5" />
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                            Unified via JMAP. Experience zero-latency syncing across WhatsApp, Instagram, FB, and Email with a single identity.
+                        </p>
+                        <div className="mt-auto w-full h-1/2 bg-linear-to-t from-brand-primary/10 to-transparent rounded-t-xl border-x border-t border-border/20 flex flex-col p-6 gap-4">
+                            <motion.div
+                                initial={{ x: -20, opacity: 0 }}
+                                whileInView={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                                className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                                <span className="text-[10px] font-bold">WhatsApp: New Lead</span>
+                            </motion.div>
+                            <motion.div
+                                initial={{ x: 20, opacity: 0 }}
+                                whileInView={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.7 }}
+                                className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm self-end w-4/5"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-brand-primary shadow-[0_0_8px_rgba(45,91,255,0.6)]" />
+                                <span className="text-[10px] font-bold">Email: AI Draft Ready</span>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+
+                    <div className="flex flex-col gap-6">
+                        <motion.div variants={itemVariants} className="bg-secondary/10 dark:bg-card rounded-2xl p-8 border border-border/40 flex flex-col h-100 group">
+                            <div className="flex justify-between items-start mb-4">
+                                <h3 className="text-xl font-bold text-foreground">Rich AI Response</h3>
+                                <Sparkles className="text-brand-accent w-5 h-5" />
+                            </div>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                                Not just text. Our AI interprets 140+ message threads to generate response and take actions instantly.
+                            </p>
+                            <div className="mt-auto self-center relative">
+                                <motion.div
+                                    animate={{ y: [0, -10, 0] }}
+                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                    className="w-28 h-28 bg-brand-primary/5 rounded-3xl border border-brand-primary/20 flex items-center justify-center shadow-[0_0_50px_-12px_rgba(45,91,255,0.3)] group-hover:border-brand-primary/40 transition-colors"
+                                >
+                                    <Bird className="text-brand-primary w-10 h-10" />
+                                </motion.div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants} className="bg-secondary/10 dark:bg-card rounded-2xl p-8 border border-border/40 h-44 relative group overflow-hidden">
+                            <div className="flex items-center gap-2 mb-2">
+                                <h3 className="text-lg font-bold text-foreground">Global Presence</h3>
+                                <Phone className="w-4 h-4 text-brand-primary" />
+                            </div>
+                            <p className="text-xs text-muted-foreground leading-relaxed pr-24">
+                                Phone & SMS integrated. Automated routing ensures no lead is left in the void.
+                            </p>
+                            <div className="absolute bottom-6 right-6">
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    className="flex items-center gap-3 bg-background/80 border border-border/60 px-4 py-3 rounded-2xl backdrop-blur-md shadow-lg"
+                                >
+                                    <Lock className="w-5 h-5 text-brand-primary" />
+                                    <div className="leading-none">
+                                        <p className="text-[10px] font-bold text-foreground tracking-widest uppercase">256-BIT</p>
+                                        <p className="text-[8px] text-muted-foreground uppercase">E2E Secure</p>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    <motion.div variants={itemVariants} className="flex flex-col gap-6">
+                        <div className="bg-secondary/10 dark:bg-card rounded-2xl p-8 border border-border/40 h-150 flex flex-col overflow-hidden group">
+                            <h3 className="text-xl font-bold text-foreground mb-4">The Rust Engine</h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                                Search across all platforms—email to WhatsApp—in under 10ms with our proprietary Rust core.
+                            </p>
+
+                            <motion.div
+                                whileHover={{ x: -5, y: -5 }}
+                                className="mt-auto -mr-8 -mb-8 p-6 bg-[#020617] rounded-tl-2xl border-t border-l border-white/5 font-mono text-[11px] transition-transform duration-500"
+                            >
+                                <div className="flex gap-1.5 mb-4">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                                    <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                                </div>
+                                <p className="text-brand-primary">falcon <span className="text-white">--omni</span> sync</p>
+                                <p className="text-slate-500 mt-2">{"// Aggregating 7 channels..."}</p>
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ delay: 1 }}
+                                    className="text-emerald-400"
+                                >
+                                    {"[✓] WhatsApp Active"}
+                                </motion.p>
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ delay: 1.2 }}
+                                    className="text-emerald-400"
+                                >
+                                    {"[✓] Instagram Linked"}
+                                </motion.p>
+                                <p className="text-brand-accent mt-4">{"Ready in 0.002s"}</p>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+
+                </motion.div>
             </div>
         </section>
     );

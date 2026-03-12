@@ -2,6 +2,7 @@
 import React from "react";
 import { Bird, Globe, Instagram } from "lucide-react";
 import Link from "next/link";
+import ElectricDivider from "./ElectricDivider";
 
 const XIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -13,28 +14,22 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-background text-muted-foreground pt-16 pb-8 border-t border-border/40">
+    <footer className="bg-background text-muted-foreground pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Decorative Top Divider with Dots */}
-        <div className="relative w-full h-px bg-border/40 mb-16 flex justify-between items-center px-[10%] md:px-[20%]">
-          <div className="w-1 h-1 bg-border rounded-full" />
-          <div className="w-1 h-1 bg-border rounded-full" />
-          <div className="w-1 h-1 bg-border rounded-full" />
-          <div className="w-1 h-1 bg-border rounded-full" />
-        </div>
+        <ElectricDivider />
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
           {/* Brand Column */}
           <div className="md:col-span-4 flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2 group">
               <Bird className="w-5 h-5 text-brand-primary" />
-              <span className="text-lg font-bold tracking-tight text-foreground">
-                Hypersphere
+              <span className="text-xl font-bold tracking-tight hidden sm:block text-foreground">
+                Falcon<span className="text-brand-primary">Mail</span>
               </span>
             </Link>
             <p className="text-sm leading-relaxed max-w-70">
-             Revolutionize your business with next level AI Support and enhance your business operations.
+              Revolutionize your business with next level AI Support and enhance your business operations.
             </p>
 
             <div className="mt-4">
@@ -55,18 +50,18 @@ export default function Footer() {
 
           {/* Links Columns */}
           <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
-            <FooterGroup title="Product" links={["Pricing", "Integrations"]} />
-            <FooterGroup title="Solutions" links={["Internal Knowledge Base", "Public Docs"]} />
-            <FooterGroup title="Resources" links={["Docs", "Blog", "Changelog", "Security", "Newsletter"]} />
-            <FooterGroup title="Company" links={["About", "Careers", "Contact and support", "Security", "Newsletter"]} />
+            <FooterGroup title="Solutions" links={["Pricing", "Integrations"]} />
+            <FooterGroup title="Integrations" links={["Email", "Webchat", "Facebook", "WhatsApp", "Instagram",]} />
+            <FooterGroup title="Resources" links={["Blog", "Changelog", "Newsletter"]} />
+            <FooterGroup title="Company" links={["About", "Careers", "Contact"]} />
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground/60 font-medium">
           <div className="flex flex-col gap-1">
-            <p>Copyright © {currentYear} Hypersphere Inc. All right reserved.</p>
-            <p>360 Surakarta Ave #6071, East Java, SR00382, INA. EIN: 400329347</p>
+            <p>Copyright © {currentYear} Ayokah Services Limited. All right reserved.</p>
+            <p>360 Surakarta Ave #6071, East Java, SR00382, LD. EIN: 400329347</p>
           </div>
           <div className="flex gap-6 items-end">
             <a href="#" className="hover:text-foreground transition-colors">Terms and Conditions</a>

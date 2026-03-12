@@ -81,14 +81,18 @@
         @apply border-border outline-ring/50;
     }
 
-    body {
-        background-color: var(--background);
-        color: var(--foreground);
+    body,
+    p,
+    span,
+    a,
+    li,
+    input,
+    textarea {
         font-family: var(--font-instrument), sans-serif !important;
-        overflow-x: hidden;
-        transition:
-            background-color 0.3s ease,
-            color 0.3s ease;
+        /* background-color: var(--background); */
+        /* color: var(--foreground); */
+        /* overflow-x: hidden; */
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     h1,
