@@ -20,7 +20,7 @@ export default function BlogDetailPage() {
       <p>By using Stalwart, we ensure memory safety and extreme performance, even under heavy load.</p>
     `,
         date: "March 10, 2026",
-        readTime: "5 min read",
+        readTime: "1 min read",
         author: "Abiodun Marcus",
         category: "Engineering",
         image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1000",

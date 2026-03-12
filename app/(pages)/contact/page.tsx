@@ -142,10 +142,7 @@ export default function ContactPage() {
 
                             {/* Human Verification Block */}
                             <div className="p-6 bg-secondary/10 border border-border/40 rounded-3xl space-y-4">
-                                <div className="flex justify-between items-center">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-primary">
-                                        Human Verification: {challenge.category}
-                                    </label>
+                                <div className="flex justify-between items-center"> 
                                     <button hidden type="button" onClick={refreshChallenge} className="text-muted-foreground hover:text-brand-primary transition-colors">
                                         <RefreshCw size={14} />
                                     </button>

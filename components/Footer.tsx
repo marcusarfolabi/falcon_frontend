@@ -51,8 +51,8 @@ export default function Footer() {
           {/* Links Columns */}
           <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <FooterGroup title="Integrations" links={["Email", "Webchat", "Facebook", "WhatsApp", "Instagram",]} />
-            <FooterGroup title="Resources" links={["Pricing", "Integrations", "Blog", "Changelog"]} />
-            <FooterGroup title="Company" links={["About", "Careers", "Contact"]} />
+            <FooterGroup title="Resources" links={["Pricing", "Integrations", "Blog"]} />
+            <FooterGroup title="Company" links={["About", "Contact"]} />
           </div>
         </div>
 
