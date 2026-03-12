@@ -28,7 +28,7 @@ const PLANS = [
         features: [
             "Up to 6 Dedicated Seats",
             "60GB Encrypted Vault",
-            "WhatsApp & WebChat Sync",  
+            "Upto 2 Omnichannel Suite Sync",
             "DMARC & BIMI Monitoring",
             "Priority Support"
         ]
@@ -40,9 +40,9 @@ const PLANS = [
         cta: "Go Enterprise",
         icon: <Building2 className="w-5 h-5 text-indigo-500" />,
         features: [
-            "Unlimited Dedicated Seats",
-            "500GB+ RocksDB Storage",
-            "Full Omnichannel Suite",  
+            "Up to 15 Seats",
+            "120GB RocksDB Storage",
+            "Up to 6 Omnichannel Suite",  
             "Dedicated Stalwart Cluster",
             "SAML / SSO Integration"
         ]

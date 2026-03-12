@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Bird, Globe, Instagram } from "lucide-react";
+import { Bird, Facebook, Globe, Instagram, LucideLinkedin } from "lucide-react";
 import Link from "next/link";
 import ElectricDivider from "./ElectricDivider";
 
@@ -35,10 +35,10 @@ export default function Footer() {
             <div className="mt-4">
               <h5 className="text-foreground font-bold text-sm mb-4">Get in Touch with Us!</h5>
               <div className="flex gap-3">
-                {[Globe, Instagram, XIcon].map((Icon, idx) => (
+                {[LucideLinkedin, Facebook, XIcon].map((Icon, idx) => (
                   <a
                     key={idx}
-                    href="#"
+                    href="https://www.instagram.com/falconmail.com"
                     className="w-8 h-8 rounded-full bg-secondary/50 border border-border/50 flex items-center justify-center hover:border-brand-primary hover:text-brand-primary transition-all"
                   >
                     <Icon size={14} />
@@ -53,15 +53,15 @@ export default function Footer() {
             <FooterGroup title="Solutions" links={["Pricing", "Integrations"]} />
             <FooterGroup title="Integrations" links={["Email", "Webchat", "Facebook", "WhatsApp", "Instagram",]} />
             <FooterGroup title="Resources" links={["Blog", "Changelog", "Newsletter"]} />
-            <FooterGroup title="Company" links={["About", "Careers", "Contact"]}  />
+            <FooterGroup title="Company" links={["About", "Careers", "Contact"]} />
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between gap-4 text-xs text-muted-foreground/60 font-medium">
           <div className="flex flex-col gap-1">
-            <p>Copyright © {currentYear} Ayokah Services Limited. All right reserved.</p>
-            <p>360 Surakarta Ave #6071, East Java, SR00382, LN. EIN: 400329347</p>
+            <p>Copyright © {currentYear} FalconMail Services Limited. All right reserved.</p>
+            <p>360 Kent, LN. UK</p>
           </div>
           <div className="flex gap-6 items-end">
             <a href="/terms" className="hover:text-foreground transition-colors">Terms and Conditions</a>
@@ -77,7 +77,7 @@ function FooterGroup({ title, links }: { title: string; links: string[] }) {
     <div className="flex flex-col gap-4">
       <h4 className="text-foreground font-bold text-sm">{title}</h4>
       <ul className="flex flex-col gap-2">
-        {links.map((link) => { 
+        {links.map((link) => {
           const href = `/${link.toLowerCase().replace(/\s+/g, "-")}`;
 
           return (
