@@ -20,25 +20,25 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 md:p-6 pointer-events-none">
+  return ( 
+    <nav className="fixed top-0 inset-x-0 z-50 flex justify-center p-4 md:p-6 pointer-events-none">
       <Popover className="w-full max-w-7xl pointer-events-auto">
         {({ open, close }) => (
           <>
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }} 
-              className={`flex items-center justify-between w-full px-6 py-3 rounded-2xl border transition-all duration-500 
+              className={`flex items-center justify-between w-full px-4 md:px-6 py-3 rounded-2xl border transition-all duration-500 
                 ${scrolled || open
                   ? "bg-background/80 backdrop-blur-xl border-border shadow-lg"
                   : "bg-background/5 backdrop-blur-sm border-foreground/5"
                 }`}
             >
-              <Link href="/" className="flex items-center gap-2 group">
+              <Link href="/" className="flex items-center gap-2 group shrink-0">
                 <div className="w-8 h-8 bg-brand-primary rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(var(--brand-primary-rgb),0.5)]">
                   <Bird className="w-5 h-5 text-white" />
                 </div>
@@ -60,7 +60,7 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 md:gap-4">
                 <ThemeToggle />
                 <Link
                   href="/login"
@@ -92,8 +92,8 @@ export default function Navbar() {
                     as={motion.div}
                     initial={{ opacity: 0, scale: 0.95, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    className="absolute top-24 left-4 right-4 z-50 p-6 bg-background border border-border shadow-2xl md:hidden flex flex-col gap-6 rounded-3xl"
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }} 
+                    className="absolute top-24 inset-x-4 z-50 p-6 bg-background border border-border shadow-2xl md:hidden flex flex-col gap-6 rounded-3xl"
                   >
                     {navLinks.map((link) => (
                       <Link

@@ -57,25 +57,52 @@ export default function Services() {
                         <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                             Unified via JMAP. Experience zero-latency syncing across WhatsApp, Instagram, FB, and Email with a single identity.
                         </p>
-                        <div className="mt-auto w-full h-1/2 bg-linear-to-t from-brand-primary/10 to-transparent rounded-t-xl border-x border-t border-border/20 flex flex-col p-6 gap-4">
+                        <div className="mt-auto w-full h-1/2 bg-linear-to-t from-brand-primary/10 to-transparent rounded-t-xl border-x border-t border-border/20 flex flex-col p-6 gap-4 overflow-hidden">
+
+                            {/* WhatsApp Signal */}
                             <motion.div
                                 initial={{ x: -20, opacity: 0 }}
                                 whileInView={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 0.5 }}
                                 className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm"
                             >
-                                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                                <span className="text-[10px] font-bold">WhatsApp: New Lead</span>
+                                <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                                <span className="text-[10px] font-bold tracking-tight">WhatsApp: New Order Lead</span>
                             </motion.div>
+
+                            {/* Instagram Signal */}
                             <motion.div
                                 initial={{ x: 20, opacity: 0 }}
                                 whileInView={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                                className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm self-end w-[85%]"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.6)]" />
+                                <span className="text-[10px] font-bold tracking-tight">Instagram: Product Inquiry</span>
+                            </motion.div>
+
+                            {/* Email Signal */}
+                            <motion.div
+                                initial={{ x: -20, opacity: 0 }}
+                                whileInView={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 0.7 }}
-                                className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm self-end w-4/5"
+                                className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm w-[90%]"
                             >
                                 <div className="w-2 h-2 rounded-full bg-brand-primary shadow-[0_0_8px_rgba(45,91,255,0.6)]" />
-                                <span className="text-[10px] font-bold">Email: AI Draft Ready</span>
+                                <span className="text-[10px] font-bold tracking-tight">Email: New Lead Generated</span>
                             </motion.div>
+
+                            {/* Facebook Signal */}
+                            <motion.div
+                                initial={{ y: 20, opacity: 0 }}
+                                whileInView={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                                className="flex items-center gap-3 p-3 bg-card/80 border border-border/40 rounded-xl shadow-sm self-center w-full"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.6)]" />
+                                <span className="text-[10px] font-bold tracking-tight">Facebook: I'm interested in your product</span>
+                            </motion.div>
+
                         </div>
                     </motion.div>
 
