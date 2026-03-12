@@ -1,10 +1,24 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Mail, Fingerprint, Share2 } from "lucide-react";
+import { ArrowRight, Zap, Mail, Fingerprint, Share2, LucideIcon } from "lucide-react";
 import Link from "next/link";
 
-export default function FinalCTA() {
+interface FinalCTAProps {
+    title?: React.ReactNode;
+    description?: string;
+    icon?: LucideIcon;
+    primaryBtnText?: string;
+    primaryBtnHref?: string;
+}
+
+export default function FinalCTA({
+    title = <>Are you <span className="text-brand-primary">Ready?</span></>,
+    description = "Deploy your private node in 0.002s. Fully encrypted Stalwart infra, RocksDB storage, and AI-driven omnichannel routing.",
+    icon: Icon = Mail,
+    primaryBtnText = "Get Started",
+    primaryBtnHref = "/register"
+}: FinalCTAProps) {
     return (
         <section className="py-24 bg-background relative overflow-hidden">
             <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none" />
@@ -25,18 +39,18 @@ export default function FinalCTA() {
                         </motion.div>
 
                         <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6 leading-[1.1]">
-                           Are you <span className="text-brand-primary">Ready?</span>
+                            {title}
                         </h2>
 
                         <p className="text-lg text-muted-foreground/80 mb-10 leading-relaxed">
-                            Deploy your private node in 0.002s. Fully encrypted Stalwart infra, RocksDB storage, and AI-driven omnichannel routing.
+                            {description}
                         </p>
 
                         <div className="flex flex-wrap gap-4">
-                            <Link href="/register" className="group relative">
+                            <Link href={primaryBtnHref} className="group relative">
                                 <div className="absolute -inset-1 bg-brand-primary/40 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                                 <button className="relative cursor-pointer px-8 py-4 bg-brand-primary text-white rounded-xl font-black uppercase tracking-widest text-xs flex items-center gap-3 transition-all active:scale-95">
-                                    Get Started
+                                    {primaryBtnText}
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </Link>
@@ -47,11 +61,10 @@ export default function FinalCTA() {
                     </div>
 
                     <div className="lg:col-span-7 relative h-[400px] flex items-center justify-center">
-                        {/* The Central Engine Node */}
                         <div className="relative z-20 w-48 h-48 bg-card border border-border rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden group">
                             <div className="absolute inset-0 bg-linear-to-br from-brand-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="relative p-6 border border-brand-primary/20 rounded-2xl bg-background/50 backdrop-blur-sm">
-                                <Mail className="w-12 h-12 text-brand-primary animate-pulse" />
+                                <Icon className="w-12 h-12 text-brand-primary animate-pulse" />
                             </div>
 
                             {[...Array(4)].map((_, i) => (
@@ -91,7 +104,7 @@ export default function FinalCTA() {
                             <Zap className="w-5 h-5 text-yellow-500" />
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </section>
     );
