@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ArrowLeft, Calendar, Clock, User, Share2 } from "lucide-react";
-import Link from "next/link";
+import { ArrowLeft, Clock, User, Share2 } from "lucide-react";
 
 export default function BlogDetailPage() {
     const { slug } = useParams();
@@ -26,6 +24,15 @@ export default function BlogDetailPage() {
         image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=1000",
     };
 
+    const breadcrumbLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://falconmail.online" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://falconmail.online/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://falconmail.online/blog/${slug}` }
+        ]
+    };
     return (
         <article className="pt-32 pb-20 container mx-auto px-6 max-w-4xl">
             {/* Navigation */}

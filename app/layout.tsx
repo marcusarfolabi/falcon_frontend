@@ -11,8 +11,43 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "FalconMail | Sovereign JMAP Infrastructure",
-  description: "Next-gen mail engine powered by Rust and Stalwart.",
+  title: {
+    default: "FalconMail | Sovereign JMAP Mail Infrastructure",
+    template: "%s | FalconMail"
+  },
+  description: "Next-gen mail engine powered by Rust and Stalwart. Secure, sovereign, and blazingly fast.",
+  openGraph: {
+    title: "FalconMail",
+    description: "Sovereign JMAP Infrastructure",
+    url: "https://falconmail.online",
+    siteName: "FalconMail",
+    images: [
+      {
+        url: "https://falconmail.online/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FalconMail",
+    description: "Sovereign JMAP Infrastructure",
+    images: ["https://falconmail.online/og-image.png"],
+  },
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
