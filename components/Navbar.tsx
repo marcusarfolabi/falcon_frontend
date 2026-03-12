@@ -12,7 +12,7 @@ const navLinks = [
   { name: "Solutions", href: "/#solutions" },
   { name: "Integration", href: "/#integration" },
   { name: "Pricing", href: "/#pricing" },
-  // { name: "About", href: "/about" },
+  { name: "Contact Us", href: "/contact-us" },
 ];
 
 export default function Navbar() {
@@ -47,7 +47,6 @@ export default function Navbar() {
                 </span>
               </Link>
 
-              {/* Desktop Links */}
               <div className="hidden md:flex items-center gap-8">
                 {navLinks.map((link) => (
                   <Link
@@ -70,7 +69,7 @@ export default function Navbar() {
                 </Link>
 
                 <PopoverButton className="md:hidden p-2 text-foreground outline-none focus:ring-0">
-                  {open ? <X size={24} /> : <Menu size={24} />}
+                  {open ? <X aria-label="Close menu" size={24} /> : <Menu aria-label="Open menu" size={24} />}
                 </PopoverButton>
               </div>
             </motion.div>
