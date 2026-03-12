@@ -54,7 +54,7 @@ export default function FinalCTA({
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </Link>
-                            <Link href="/contact" className="px-8 py-4 rounded-xl border border-border bg-card font-black uppercase tracking-widest text-xs hover:bg-secondary/50 transition-colors">
+                            <Link href="/contact-us" className="px-8 py-4 rounded-xl border border-border bg-card font-black uppercase tracking-widest text-xs hover:bg-secondary/50 transition-colors">
                                 Learn More
                             </Link>
                         </div>
