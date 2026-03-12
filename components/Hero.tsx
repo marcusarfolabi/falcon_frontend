@@ -26,8 +26,8 @@ export default function Hero() {
     return (
         <section className="relative w-full pt-32 pb-20 flex flex-col items-center overflow-hidden bg-background">
 
-            <div className="container mx-auto px-6 z-20 flex flex-col items-center text-center mb-16">
-                <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-foreground mb-6">
+            <div className="container mx-auto px-6 z-20 flex flex-col items-center text-center mb-10">
+                <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-foreground mb-4">
                     Revolutionize Your Business with <br />
                     <span className="text-brand-primary">Next-Level AI Support</span>
                 </h1>
@@ -80,14 +80,14 @@ export default function Hero() {
                     <div className="absolute inset-0 bg-brand-primary/20 blur-xl rounded-full animate-pulse" />
                 </div>
             </div>
-
-            <div className="mt-16 mb-20 flex flex-col sm:flex-row items-center gap-4 z-20">
+            <div className="mt-4 mb-20 w-full max-w-sm px-6 z-20">
                 <Link
-                    href="/signup"
-                    className="group relative px-8 py-4 bg-brand-primary text-white font-bold rounded-2xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(45,91,255,0.4)] hover:-translate-y-1"
+                    href="/register"
+                    className="group w-full relative px-8 py-4 bg-brand-primary text-white font-bold rounded-2xl overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(45,91,255,0.4)] hover:-translate-y-1 flex items-center justify-center text-center"
                 >
-                    <span className="relative z-10">Get Started</span>
-                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                    <span className="relative z-10 text-lg">Get Started</span>
+
+                    <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </Link>
             </div>
 
