@@ -21,7 +21,7 @@ export default function FinalCTA({
 }: FinalCTAProps) {
     return (
         <section className="py-24 bg-background relative overflow-hidden">
-            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-125 h-125 bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
