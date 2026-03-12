@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -9,7 +9,6 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevents hydration mismatch
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return <div className="w-[110px] h-9 bg-muted rounded-full animate-pulse" />;
@@ -17,7 +16,6 @@ export function ThemeToggle() {
   const options = [
     { id: "light", icon: Sun, label: "Light" },
     { id: "dark", icon: Moon, label: "Dark" },
-    // { id: "system", icon: Monitor, label: "System" },
   ];
 
   return (
