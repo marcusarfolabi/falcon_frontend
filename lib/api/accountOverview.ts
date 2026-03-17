@@ -7,7 +7,7 @@ import { BillingOverviewResponse } from "@/types/billing";
  */
 export async function getAccountOverview(): Promise<AccountOverviewResponse> {
   const response = await api.get<AccountOverviewResponse>(
-    "/api/v1/account/overview"
+    "/account/overview"
   );
   return response.data;
 }
@@ -19,7 +19,7 @@ export async function getBillingOverview(
   limit: number
 ): Promise<BillingOverviewResponse> {
   const response = await api.get<BillingOverviewResponse>(
-    `/api/v1/account/billing?limit=${limit}`
+    `/account/billing?limit=${limit}`
   );
   return response.data;
 }

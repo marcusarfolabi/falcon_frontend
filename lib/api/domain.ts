@@ -6,13 +6,13 @@ export async function getDomainOverview(
   offset: number,
 ): Promise<DomainOverviewResponse> {
   const response = await api.get<DomainOverviewResponse>(
-    `/api/v1/account/domains?limit=${limit}&offset=${offset}`,
+    `/account/domains?limit=${limit}&offset=${offset}`,
   );
   return response.data;
 }
 
 
 export const listOrgDomains = async (): Promise<OrgDomain[]> => {
-  const response = await api.get("/api/v1/org-domains");
+  const response = await api.get("/org-domains");
   return response.data.data;
 };

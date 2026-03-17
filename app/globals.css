@@ -91,6 +91,7 @@
         font-family: var(--font-instrument), sans-serif !important;
         /* background-color: var(--background); */
         /* color: var(--foreground); */
+        color: text-gray-500;
         /* overflow-x: hidden; */
         transition: background-color 0.3s ease, color 0.3s ease;
     }

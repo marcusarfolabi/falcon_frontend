@@ -86,19 +86,27 @@ export default function OnboardingForm() {
     }, []);
 
     useEffect(() => {
+        // Only fetch if we are on the pricing step and haven't loaded plans yet
         if (step !== 3 || plans.length > 0) return;
 
         const fetchPlans = async () => {
             setIsLoadingPlans(true);
             try {
-                const res = await listPlans();
-                setPlans(res.data.plans);
+                const res = await listPlans(); 
+                if (Array.isArray(res.data)) {
+                    setPlans(res.data);
+                } else {
+                    console.error("Unexpected API response format:", res.data);
+                    setError("Received invalid data from server.");
+                }
             } catch (err) {
+                console.error("Plan fetch error:", err);
                 setError("Failed to load pricing plans.");
             } finally {
                 setIsLoadingPlans(false);
             }
         };
+
         fetchPlans();
     }, [step, plans.length]);
 
@@ -137,7 +145,7 @@ export default function OnboardingForm() {
         }
 
         try {
-            const result = await verifyDomain(verificationToken);
+            const result = await verifyDomain();
             if (result.success) {
                 setIsAutoChecking(false);
                 nextStep();

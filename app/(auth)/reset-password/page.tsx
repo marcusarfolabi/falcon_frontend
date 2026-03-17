@@ -33,7 +33,6 @@ export default function ResetPassword() {
 
         setEmail(finalEmail);
 
-        // 3. Clean up storage so it's not sitting there forever
         localStorage.removeItem('pending_verification_email');
     }, [router]);
 
@@ -57,7 +56,7 @@ export default function ResetPassword() {
             // 3. Call Backend
             await authApi.resetPassword({
                 email: email,
-                password: password,
+                new_password: password,
             });
             router.push('/login');
         } catch (error: any) {

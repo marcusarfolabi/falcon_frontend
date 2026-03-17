@@ -10,6 +10,6 @@ export const PagesApi = {
 
   // Contact Mail (General Inquiries)
   contactMail: async (data: any) => {
-    return api.post("/api/v1/contact/mail", { ...data });
+    return api.post("/contact/mail", { ...data });
   },
 };
