@@ -5,7 +5,7 @@ import { setupCache } from "axios-cache-interceptor";
 
 const baseApi = axios.create({
   baseURL:
-    process.env.NEXT_PUBLIC_API_URL || "https://api.falconmail.online/v1",
+    process.env.NEXT_PUBLIC_API_URL || "https://core.falconmail.online/v2",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

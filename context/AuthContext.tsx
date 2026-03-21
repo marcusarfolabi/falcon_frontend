@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useState } from "react";
 import { User } from "@/types/user";
 import { useAuthStore } from "@/stores/useUserStore";
+import toast from "react-hot-toast";
 
 interface AuthContextType {
   user: User | null;
@@ -55,8 +56,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         router.push("/mail/inbox");
       }
-    } catch (err) {
-      console.error("Login failed", err);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.detail || "Something went wrong. Please try again later";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
