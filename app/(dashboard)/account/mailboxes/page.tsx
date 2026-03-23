@@ -16,7 +16,6 @@ import {
 import { getMailboxOverview } from "@/lib/api/mailboxes";
 import {
   Menu,
-  Dialog,
   Transition,
   MenuItems,
   MenuItem,
@@ -28,8 +27,9 @@ export default function MailboxPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [offset, setOffset] = useState(0);
-  const LIMIT = 10;
+  const LIMIT = 100;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [activeView, setActiveView] = useState<
     "sync" | "config" | "aliases" | "status" | "delete" | null
   >(null);
@@ -43,18 +43,36 @@ export default function MailboxPage() {
     setActiveView(view);
     setIsModalOpen(true);
   };
-
+  
   useEffect(() => {
-    setLoading(true);
-    getMailboxOverview(LIMIT, offset)
-      .then(setData)
-      .finally(() => setLoading(false));
+    let isMounted = true;
+
+    const fetchMailboxes = async () => {
+      try {
+        setLoading(true);
+        const res = await getMailboxOverview(LIMIT, offset);
+
+        if (isMounted) {
+          console.log("Stalwart API Data:", res);
+          setData(res);
+        }
+      } catch (err) {
+        console.error("API Fetch Failed:", err);
+      } finally {
+        if (isMounted) {
+          setLoading(true); 
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchMailboxes();
+
+    return () => {
+      isMounted = false;
+    };
   }, [offset]);
 
-  // 2. Add specific state for the Provisioning Modal
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
-  // Helper to refresh data
   const refreshData = () => {
     setLoading(true);
     getMailboxOverview(LIMIT, offset)
@@ -76,8 +94,13 @@ export default function MailboxPage() {
     );
   }
 
-  const { inventory, mailboxes, pagination } = data;
-
+  const {
+    inventory = {},
+    mailboxes = [],
+    pagination = { total: 0, has_more: false }
+  } = data ?? {};
+  console.log(mailboxes)
+  
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

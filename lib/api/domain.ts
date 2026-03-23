@@ -13,6 +13,6 @@ export async function getDomainOverview(
 
 
 export const listOrgDomains = async (): Promise<OrgDomain[]> => {
-  const response = await api.get("/org-domains");
+  const response = await api.get("/account/org-domains");
   return response.data.data;
 };

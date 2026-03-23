@@ -12,15 +12,15 @@ export interface DomainCheckResponse {
 }
 
 export interface OrgDomain {
-  id: number;
-  org_id: string;
+  id?: number;
+  org_id?: string;
   domain_name: string;
   is_verified: boolean;
   dns_verification_token: string;
-  domain_verified_at: string;
-  plan_id: number;
-  max_storage: number;
-  max_seats: number;
+  domain_verified_at?: string;
+  plan_id?: number;
+  max_storage?: number;
+  max_seats?: number;
 }
 
 
