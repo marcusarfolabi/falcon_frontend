@@ -1,6 +1,6 @@
 "use client";
 import { Fragment } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
 import { Check, ChevronDown, LucideIcon } from 'lucide-react';
 
 interface AuthSelectProps {
@@ -30,8 +30,7 @@ export function AuthSelect({
 
             <Listbox value={value} onChange={onChange}>
                 <div className="relative">
-                    <Listbox.Button className="input relative w-full text-left">
-                        {/* Icon Slot - Matches AuthInput */}
+                    <ListboxButton className="input relative w-full text-left focus:outline-none focus:ring-0">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
                             <Icon className="h-4 w-4" />
                         </span>
@@ -47,7 +46,7 @@ export function AuthSelect({
                         <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                             <ChevronDown className="h-4 w-4 text-slate-400" />
                         </span>
-                    </Listbox.Button>
+                    </ListboxButton>
 
                     <Transition
                         as={Fragment}
@@ -58,9 +57,9 @@ export function AuthSelect({
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Listbox.Options className="absolute z-50 mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        <ListboxOptions className="absolute z-50 mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-xl   focus:outline-none sm:text-sm">
                             {options.map((option, index) => (
-                                <Listbox.Option
+                                <ListboxOption
                                     key={index}
                                     className={({ active }) =>
                                         `relative cursor-default select-none py-3 pl-10 pr-4 transition-colors ${active ? 'bg-blue-50 text-blue-900' : 'text-slate-700'
@@ -80,9 +79,9 @@ export function AuthSelect({
                                             )}
                                         </>
                                     )}
-                                </Listbox.Option>
+                                </ListboxOption>
                             ))}
-                        </Listbox.Options>
+                        </ListboxOptions>
                     </Transition>
                 </div>
             </Listbox>
