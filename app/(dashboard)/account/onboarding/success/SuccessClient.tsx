@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2, ShieldCheck, ArrowRight, Server } from "lucide-react";
 import { motion } from "framer-motion";
 import AuthButton from "@/app/(auth)/components/AuthButton";
-import { onboardingStatus } from "@/lib/api/subscription";
+import { verifyPaymentStatus } from "@/lib/api/subscription";
 
 export default function SuccessClient() {
     const router = useRouter();
@@ -22,7 +22,7 @@ export default function SuccessClient() {
         if (!paymentIntentId) return;
 
         try {
-            const data = await onboardingStatus(paymentIntentId);
+            const data = await verifyPaymentStatus(paymentIntentId);
 
             // If the backend says 'active', the server is ready
             if (data.status === "success") {
@@ -33,11 +33,11 @@ export default function SuccessClient() {
                 // Keep polling every 5 seconds if still provisioning
                 setStatus("processing");
                 setMessage("Provisioning your Stalwart cluster... this takes 3–5 minutes.");
-                pollingRef.current = setTimeout(checkStatus, 10000);
+                // pollingRef.current = setTimeout(checkStatus, 10000);
             }
         } catch (err) {
             console.error("Status check failed", err);
-            pollingRef.current = setTimeout(checkStatus, 10000);
+            // pollingRef.current = setTimeout(checkStatus, 10000);
         }
     }, [paymentIntentId]);
 

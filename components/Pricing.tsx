@@ -132,7 +132,7 @@ export default function Pricing() {
                                         </div>
                                         {billingCycle === "yearly" && (
                                             <p className="text-[9px] font-black text-brand-primary uppercase mt-1">
-                                                Billed ${plan.monthlyPrice * 10} annually
+                                                Billed £{plan.monthlyPrice * 10} annually
                                             </p>
                                         )}
                                     </div>

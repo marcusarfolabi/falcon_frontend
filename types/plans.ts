@@ -8,12 +8,15 @@ export interface Plan {
   id: string;
   name: string;
   description: string;
+  monthly_amount: number;
+  annual_amount: number;
+  currency: string;
   features: string[];
-  highlight: boolean;
-  prices: {
-    monthly: PlanPrice;
-    annual: PlanPrice;
-  };
+  is_highlighted: boolean;
+  max_seats: number;
+  max_storage: number;
+  monthly_price_id: string;
+  annual_price_id: string;
 }
 
 export interface ApiResponse {

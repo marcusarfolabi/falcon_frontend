@@ -17,6 +17,7 @@ export default function PaymentStep({
     domain,
     prevStep
 }: PaymentStepProps) {
+    console.log("Rendering PaymentStep with clientSecret:", clientSecret);
     return (
         <StripeElementsProvider clientSecret={clientSecret} prevStep>
             <motion.div

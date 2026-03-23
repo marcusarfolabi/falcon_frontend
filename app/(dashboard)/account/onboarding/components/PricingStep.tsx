@@ -26,6 +26,10 @@ export default function PricingStep({
     nextStep,
     prevStep
 }: PricingStepProps) {
+
+    // Helper to get currency symbol
+    const getCurrencySymbol = (code: string) => code === 'GBP' ? '£' : '$';
+
     return (
         <motion.div
             key="step3"
@@ -55,7 +59,7 @@ export default function PricingStep({
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                             }`}
                     >
-                        {cycle === 'monthly' ? 'Monthly' : 'Annual (Save)'}
+                        {cycle === 'monthly' ? 'Monthly' : 'Annual (Save 20%)'}
                     </button>
                 ))}
             </div>
@@ -65,12 +69,15 @@ export default function PricingStep({
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center py-12 space-y-4">
                         <Loader2 className="animate-spin text-blue-600 w-8 h-8" />
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Fetching latest rates...</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Syncing with Falcon Infrastructure...</p>
                     </div>
                 ) : (
-                    plans.map((plan) => {
-                        const price = plan.prices[billingCycle];
-                        const isSelected = selectedPlanId === price.id;
+                    // Sort plans by price so Solo Pro usually appears first
+                    [...plans].sort((a, b) => a.monthly_amount - b.monthly_amount).map((plan) => {
+                        // Logic for new API structure
+                        const priceId = billingCycle === 'monthly' ? plan.monthly_price_id : plan.annual_price_id;
+                        const amount = billingCycle === 'monthly' ? plan.monthly_amount : plan.annual_amount;
+                        const isSelected = selectedPlanId === priceId;
 
                         return (
                             <div
@@ -78,7 +85,7 @@ export default function PricingStep({
                                 onClick={() =>
                                     setFormData((prev: any) => ({
                                         ...prev,
-                                        plan_id: price.id,
+                                        plan_id: priceId, // Store the specific Stripe Price ID
                                     }))
                                 }
                                 className={`p-5 rounded-2xl border-2 cursor-pointer transition-all relative group ${isSelected
@@ -86,9 +93,9 @@ export default function PricingStep({
                                         : 'border-slate-100 hover:border-slate-300 bg-white'
                                     }`}
                             >
-                                {plan.highlight && (
+                                {plan.is_highlighted && (
                                     <span className="absolute -top-3 right-4 bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-bold shadow-sm">
-                                        Popular
+                                        Popular Choice
                                     </span>
                                 )}
 
@@ -97,13 +104,13 @@ export default function PricingStep({
                                         <p className="font-black text-slate-900 text-lg leading-tight">
                                             {plan.name}
                                         </p>
-                                        <p className="text-xs text-slate-500 mt-1">
+                                        <p className="text-xs text-slate-500 mt-1 max-w-[200px]">
                                             {plan.description}
                                         </p>
                                     </div>
                                     <div className="text-right">
                                         <p className="text-2xl font-black text-slate-900">
-                                            ${price.amount}
+                                            {getCurrencySymbol(plan.currency)}{amount}
                                         </p>
                                         <p className="text-[10px] font-bold text-slate-400 uppercase">
                                             per {billingCycle === 'monthly' ? 'month' : 'year'}
@@ -112,15 +119,19 @@ export default function PricingStep({
                                 </div>
 
                                 <ul className="mt-4 space-y-2 border-t border-slate-100 pt-4">
-                                    {plan.features.map((f) => (
+                                    {plan.features.map((feature) => (
                                         <li
-                                            key={f}
+                                            key={feature}
                                             className="text-xs text-slate-600 flex items-center gap-2"
                                         >
-                                            <CheckCircle2 className={`w-3 h-3 ${isSelected ? 'text-blue-500' : 'text-emerald-500'}`} />
-                                            {f}
+                                            <CheckCircle2 className={`w-3 h-3 flex-shrink-0 ${isSelected ? 'text-blue-500' : 'text-emerald-500'}`} />
+                                            {feature}
                                         </li>
                                     ))}
+                                    {/* Additional technical specs from the response */}
+                                    <li className="text-[10px] font-bold text-blue-600/60 uppercase tracking-tighter pt-1">
+                                        {plan.max_storage}GB Secure Storage • {plan.max_seats} Seat{plan.max_seats > 1 ? 's' : ''}
+                                    </li>
                                 </ul>
                             </div>
                         );

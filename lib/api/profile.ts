@@ -1,16 +1,10 @@
-import api from "../axios";
-import { authApi } from "./auth";
+import api from "../axios"; 
 
 /**
  * Profile API methods
  */
-export const profileApi = {
-  ensureCsrf: async () => {
-    return await api.get("/sanctum/csrf-cookie");
-  },
-
-  getAuthUser: async () => {
-    await authApi.ensureCsrf();
-    return api.get("/api/v1/me");
+export const profileApi = { 
+  getAuthUser: async () => { 
+    return api.get("/auth/me");
   },
 };

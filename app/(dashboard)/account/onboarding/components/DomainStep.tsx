@@ -47,7 +47,7 @@ export default function DomainStep({
                         placeholder="yourcompany.com"
                         value={domain}
                         disabled={isValidating}
-                        className={`input ${error
+                        className={`input text-gray-500 ${error
                                 ? 'border-red-100 bg-red-50 text-red-900'
                                 : 'border-slate-100 focus:border-blue-600 bg-slate-50 focus:bg-white'
                             }`}

@@ -3,35 +3,18 @@ import toast from "react-hot-toast";
 import { useAuthStore } from "@/stores/useUserStore";
 import { setupCache } from "axios-cache-interceptor";
 
-// 1. Create the base instance
 const baseApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://api.falconmail.online",
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL || "https://api.falconmail.online/v1",
   headers: {
-    "X-Requested-With": "XMLHttpRequest",
     "Content-Type": "application/json",
     Accept: "application/json",
   },
   withCredentials: true,
-  withXSRFToken: true,
-  xsrfHeaderName: "X-XSRF-TOKEN",
-  xsrfCookieName: "XSRF-TOKEN",
 });
 
 const api = setupCache(baseApi);
 
-// api.interceptors.request.use(
-//   (config) => {
-//     const token = useAuthStore.getState().token;
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     config.cache = false;
-
-//     return config;
-//   },
-//   (error) => Promise.reject(error),
-// );
-// Inside your request interceptor
 api.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
@@ -39,10 +22,9 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // FIX: If we are downloading a file, remove the JSON-only headers
-    if (config.responseType === 'blob') {
-      config.headers['Accept'] = '*/*'; 
-      config.cache = false; // Definitely don't cache blobs
+    if (config.responseType === "blob") {
+      config.headers["Accept"] = "*/*";
+      config.cache = false;
     }
 
     return config;
@@ -50,20 +32,30 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("API error:", error);
+    const errorMessage =
+      error.response?.data?.detail ||
+      error.response?.data?.message ||
+      "Something went wrong";
+
     if (error?.response?.status === 401) {
       if (
         typeof window !== "undefined" &&
         window.location.pathname !== "/login"
       ) {
         useAuthStore.getState().clearAuth();
-        toast.error(error.response?.data?.message || "Session expired");
-        window.location.href = "/";
+        toast.error("Session expired");
+        window.location.href = "/login"; // Force back to login
       }
+    } else if (error?.response?.status === 422) {
+      toast.error("Check your input data");
+    } else {
+      toast.error(errorMessage);
     }
+
     return Promise.reject(error);
   },
 );
