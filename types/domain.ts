@@ -4,8 +4,7 @@ export interface ApiResponse {
   status: "registered" | "unregistered";
   hint: string;
 }
-
-// Optional: If your Laravel API wraps the response in a standard data object
+ 
 export interface DomainCheckResponse {
   data: ApiResponse;
   message?: string;
@@ -23,6 +22,25 @@ export interface OrgDomain {
   max_seats?: number;
 }
 
+export interface DomainEntry {
+  id: number;
+  name: string;
+  verification: {
+    is_verified: boolean;  
+    token: string;
+    verified_at: string | null;
+  };
+  plan: {
+    id: string;  
+    label: string;  
+    seats: number;
+    storage_gb: number;
+  };
+  dates: {
+    added: string;
+    last_sync: string;
+  };
+}
 
 export interface DomainOverviewResponse {
   domains: DomainEntry[];
@@ -36,25 +54,4 @@ export interface DomainOverviewResponse {
     limit: number;
     has_more: boolean;
   };
-}
-
-export interface DomainEntry {
-  id: number;
-  name: string;
-  verification: {
-    is_verified: boolean;
-    token: string;
-    verified_at: string | null;
-  };
-  plan: {
-    id: string;
-    label: string;
-    seats: number;
-    storage_gb: number;
-  };
-  dates: {
-    added: string;
-    last_sync: string;
-  };
-  status: "protected" | "pending_dns";
 }
