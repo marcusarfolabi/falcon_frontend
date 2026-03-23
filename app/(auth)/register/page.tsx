@@ -60,8 +60,8 @@ export default function Register() {
                 router.push('/verify-otp');
             }
         } catch (error: any) {
-            console.error("Registration failed", error);
-            toast.error(error.response?.data?.message || "Registration failed");
+            const errorMessage = error.response?.data?.detail || "Registration failed";
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -73,7 +73,7 @@ export default function Register() {
             subtitle={step === 1 ? "Step 1: Your Personal Identity" : "Step 2: Your Sovereign Mail Node"}
             showProgress={true}
             currentStep={step}
-            totalSteps={2} 
+            totalSteps={2}
         >
             <form className="space-y-5" onSubmit={step === 1 ? nextStep : handleRegister}>
                 {step === 1 ? (
