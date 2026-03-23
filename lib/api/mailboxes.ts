@@ -25,7 +25,7 @@ export async function getMailboxOverview(
   offset: number,
 ): Promise<MailboxOverviewResponse> {
   const response = await api.get<MailboxOverviewResponse>(
-    `/account/mailboxes?limit=${limit}&offset=${offset}`,
+    `/mailboxes?limit=${limit}&offset=${offset}`,
   );
   return response.data;
 }
