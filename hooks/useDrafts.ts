@@ -6,17 +6,18 @@ export function useDrafts() {
   return useQuery({
     queryKey: ["drafts"],
     queryFn: async () => {
-      const { data } = await api.get("/mailboxes/drafts");
-
-      return data.map((email: any) => ({
+      const response = await api.get("/mailboxes/drafts");
+      const { data } = response;
+      return (data.emails || []).map((email: any) => ({
         id: email.id,
         recipient:
-        email.to?.[0]?.name || email.to?.[0]?.email || "(No recipient)",
+          email.to?.[0]?.name || email.to?.[0]?.email || "(No recipient)",
         subject: email.subject || "(No Subject)",
         preview: email.preview || "",
         time: formatEmailDate(email.receivedAt),
         isDraft: true,
       }));
     },
+    staleTime: 30000,
   });
 }
