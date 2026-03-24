@@ -40,10 +40,9 @@ export async function getMailboxOverview(
 // }
 
 export const addMailBox = async (data: CreateMailboxPayload) => {
-  // Ensure you aren't wrapping 'data' in another object like { data }
   return await api.post("/mailboxes/add", data, {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 };
