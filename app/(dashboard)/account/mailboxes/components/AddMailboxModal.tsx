@@ -66,7 +66,7 @@ export function AddMailboxModal({
       domain_id: domainId,
       alternative_email: "",
       display_name: "",
-      address: "",
+      email: "",
       password: "",
     },
   });
@@ -112,9 +112,7 @@ export function AddMailboxModal({
     toast.success("Strong password generated");
   };
 
-  // 3. Robust Submit Handler
   const onSubmit = async (data: CreateMailboxPayload) => {
-    // Final safety check on domain_id
     if (!data.domain_id) {
       toast.error("Please select a domain");
       return;
@@ -191,14 +189,14 @@ export function AddMailboxModal({
             <div className="relative flex-1">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
-                {...register("address", {
+                {...register("email", {
                   required: "Username is required",
                   pattern: {
                     value: /^[a-zA-Z0-9._-]+$/,
                     message: "Invalid characters",
                   },
                 })}
-                className={`w-full input border ${errors.address ? "border-red-300" : "border-slate-100"} rounded-l-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
+                className={`w-full input border ${errors.email ? "border-red-300" : "border-slate-100"} rounded-l-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
                 placeholder="username"
               />
             </div>
@@ -233,9 +231,9 @@ export function AddMailboxModal({
               </Listbox>
             </div>
           </div>
-          {errors.address && (
+          {errors.email && (
             <p className="text-red-500 text-[10px] font-bold ml-1">
-              {errors.address.message}
+              {errors.email.message}
             </p>
           )}
         </div>

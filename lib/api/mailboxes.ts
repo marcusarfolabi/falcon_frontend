@@ -1,25 +1,21 @@
 import api from "../axios";
 import { MailboxInventory, MailboxOverviewResponse } from "@/types/mailbox";
+const FORM_HEADER = { "Content-Type": "application/x-www-form-urlencoded" };
 
-// Interface matching your Laravel $request->validate()
 export interface CreateMailboxPayload {
   display_name: string;
-  address: string; // the prefix e.g. 'john'
+  email: string;
   domain_id: string | number;
   password: string;
   alternative_email?: string;
 }
 
-// Interface for the specific response from provisionMailBox
 export interface CreateMailboxResponse {
   status: "success";
   message: string;
   data: MailboxInventory;
 }
-
-/**
- * Fetches Mailbox Inventory, Stats, and Paginated List
- */
+ 
 export async function getMailboxOverview(
   limit: number,
   offset: number,
@@ -28,17 +24,17 @@ export async function getMailboxOverview(
     `/mailboxes?limit=${limit}&offset=${offset}`,
   );
   return response.data;
-}
+} 
 
-/**
- * Provisions a new mailbox on Stalwart via Laravel
- */
 export async function addMailBox(
   payload: CreateMailboxPayload,
 ): Promise<CreateMailboxResponse> {
   const response = await api.post<CreateMailboxResponse>(
     "/mailboxes/add",
     payload,
+    {
+      headers: FORM_HEADER,
+    },
   );
   return response.data;
 }
