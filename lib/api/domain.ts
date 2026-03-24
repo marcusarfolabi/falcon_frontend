@@ -14,7 +14,7 @@ export async function getDomainOverview(
 
 export const listOrgDomains = async (): Promise<OrgDomain[]> => {
   const response = await api.get("/domains");
-  return response.data.data;
+  return response.data;
 };
 
 export async function addDomain(domainName: string): Promise<{

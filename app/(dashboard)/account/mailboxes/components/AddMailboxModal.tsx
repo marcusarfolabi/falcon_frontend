@@ -71,25 +71,28 @@ export function AddMailboxModal({
     },
   });
 
-  // 2. Fetch & Sync Logic
   useEffect(() => {
     if (isOpen) {
       listOrgDomains()
         .then((res: any) => {
-          const domainList = Array.isArray(res) ? res : res.data || [];
+          const domainList = res?.domains || [];
           setDomains(domainList);
+          console.log(domainList)
 
-          // Ensure we find the domain even if types differ (string vs number)
           const current = domainList.find(
             (d: OrgDomain) => String(d.id) === String(domainId),
           );
+
           if (current) {
             const syncData = { id: current.id, name: current.domain_name };
             setSelectedDomain(syncData);
             setValue("domain_id", current.id, { shouldValidate: true });
           }
         })
-        .catch(() => toast.error("Failed to load domains"));
+        .catch((err) => {
+          console.error(err);
+          toast.error("Failed to load domains");
+        });
     }
   }, [isOpen, domainId, setValue]);
 
