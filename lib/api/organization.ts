@@ -3,7 +3,7 @@ import api from "../axios";
 
 export async function getOrgOverview(): Promise<OrgOverviewResponse> {
   const response = await api.get<OrgOverviewResponse>(
-    "/account/organization"
+    "/organization"
   );
   return response.data;
 }
