@@ -8,7 +8,7 @@ export function useAccountSettings() {
   const identityQuery = useQuery({
     queryKey: ["account-identity"],
     queryFn: async () => {
-      const { data } = await api.get("/mail/settings/identity");
+      const { data } = await api.get("/mailboxes/settings/identity");
       return data;
     },
   });
@@ -16,7 +16,7 @@ export function useAccountSettings() {
   // 2. Update Identity Name
   const updateIdentity = useMutation({
     mutationFn: async (newName: string) => {
-      const { data } = await api.patch("/mail/settings/identity", {
+      const { data } = await api.patch("/mailboxes/settings/identity", {
         name: newName,
       });
       return data;
@@ -29,7 +29,7 @@ export function useAccountSettings() {
   // 3. Update Signature
   const updateSignature = useMutation({
     mutationFn: async ({ text, html }: { text: string; html: string }) => {
-      const { data } = await api.post("/mail/settings/signature", {
+      const { data } = await api.post("/mailboxes/settings/signature", {
         text_signature: text,
         html_signature: html,
       });

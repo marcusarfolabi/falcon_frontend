@@ -6,7 +6,7 @@ export function useDrafts() {
   return useQuery({
     queryKey: ["drafts"],
     queryFn: async () => {
-      const { data } = await api.get("/mail/drafts");
+      const { data } = await api.get("/mailboxes/drafts");
 
       return data.map((email: any) => ({
         id: email.id,

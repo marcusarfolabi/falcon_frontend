@@ -25,7 +25,7 @@ export function useAnalytics() {
     queryKey: ["mailbox-analytics"],
     queryFn: async () => {
       const response = await api.get<{ data: AnalyticsData }>(
-        "/mail/analytics",
+        "/mailboxes/analytics",
       );
       return response.data.data;
     },

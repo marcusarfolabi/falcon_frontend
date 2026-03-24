@@ -6,7 +6,7 @@ export function useSent() {
   return useQuery({
     queryKey: ['sent'],
     queryFn: async () => {
-      const { data } = await api.get('/mail/sent');
+      const { data } = await api.get('/mailboxes/sent');
       
       return data.map((email: any) => ({
         id: email.id,

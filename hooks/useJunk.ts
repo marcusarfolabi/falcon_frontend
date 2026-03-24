@@ -6,7 +6,7 @@ export function useJunk() {
   return useQuery({
     queryKey: ["junk"],
     queryFn: async () => {
-      const { data } = await api.get("/mail/junk");
+      const { data } = await api.get("/mailboxes/junk");
       const list = Array.isArray(data.emails) ? data.emails : [];
 
       return list.map((email: any) => ({
