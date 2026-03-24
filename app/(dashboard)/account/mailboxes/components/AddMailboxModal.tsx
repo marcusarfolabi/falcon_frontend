@@ -168,7 +168,7 @@ export function AddMailboxModal({
             <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               {...register("display_name", { required: "Name is required" })}
-              className={`w-full bg-slate-50 border ${errors.display_name ? "border-red-300" : "border-slate-100"} rounded-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
+              className={`w-full input  border ${errors.display_name ? "border-red-300" : "border-slate-100"} rounded-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
               placeholder="e.g. Sarah Connor"
             />
           </div>
@@ -195,7 +195,7 @@ export function AddMailboxModal({
                     message: "Invalid characters",
                   },
                 })}
-                className={`w-full bg-slate-50 border ${errors.address ? "border-red-300" : "border-slate-100"} rounded-l-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
+                className={`w-full input border ${errors.address ? "border-red-300" : "border-slate-100"} rounded-l-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
                 placeholder="username"
               />
             </div>
@@ -250,7 +250,7 @@ export function AddMailboxModal({
               {...register("alternative_email")}
               type="email"
               placeholder="personal@gmail.com"
-              className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="w-full input border border-slate-100 rounded-2xl py-3.5 pl-11 pr-4 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             />
           </div>
         </div>
@@ -296,7 +296,7 @@ export function AddMailboxModal({
                 minLength: { value: 8, message: "Min 8 characters" },
               })}
               type="text"
-              className={`w-full bg-slate-50 border ${errors.password ? "border-red-300" : "border-slate-100"} rounded-2xl py-3.5 pl-11 pr-4 text-sm font-mono font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
+              className={`w-full input border ${errors.password ? "border-red-300" : "border-slate-100"} rounded-2xl py-3.5 pl-11 pr-4 text-sm font-mono font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all`}
               placeholder="••••••••••••"
             />
           </div>
