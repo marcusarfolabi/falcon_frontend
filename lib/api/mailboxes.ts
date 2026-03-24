@@ -15,7 +15,7 @@ export interface CreateMailboxResponse {
   message: string;
   data: MailboxInventory;
 }
- 
+
 export async function getMailboxOverview(
   limit: number,
   offset: number,
@@ -24,17 +24,26 @@ export async function getMailboxOverview(
     `/mailboxes?limit=${limit}&offset=${offset}`,
   );
   return response.data;
-} 
-
-export async function addMailBox(
-  payload: CreateMailboxPayload,
-): Promise<CreateMailboxResponse> {
-  const response = await api.post<CreateMailboxResponse>(
-    "/mailboxes/add",
-    payload,
-    {
-      headers: FORM_HEADER,
-    },
-  );
-  return response.data;
 }
+
+// export async function addMailBox(
+//   payload: CreateMailboxPayload,
+// ): Promise<CreateMailboxResponse> {
+//   const response = await api.post<CreateMailboxResponse>(
+//     "/mailboxes/add",
+//     payload,
+//     {
+//       headers: FORM_HEADER,
+//     },
+//   );
+//   return response.data;
+// }
+
+export const addMailBox = async (data: CreateMailboxPayload) => {
+  // Ensure you aren't wrapping 'data' in another object like { data }
+  return await api.post("/mailboxes/add", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

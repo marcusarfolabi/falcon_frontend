@@ -61,7 +61,7 @@ export function AddMailboxModal({
     setValue,
     formState: { errors, isDirty, isValid },
   } = useForm<CreateMailboxPayload>({
-    mode: "onChange", // Validate as they type
+    mode: "onChange", 
     defaultValues: {
       domain_id: domainId,
       alternative_email: "",
