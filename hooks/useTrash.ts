@@ -6,7 +6,7 @@ export function useTrash() {
   return useQuery({
     queryKey: ["trash"],
     queryFn: async () => {
-      const { data } = await api.get("/api/v1/mail/trash");
+      const { data } = await api.get("/mail/trash");
 
       const list = Array.isArray(data) ? data : [];
 
@@ -26,7 +26,7 @@ export function useDeleted() {
   return useQuery({
     queryKey: ["deleted"],
     queryFn: async () => {
-      const { data } = await api.get("/api/v1/mail/deleted");
+      const { data } = await api.get("/mail/deleted");
 
       const list = Array.isArray(data) ? data : [];
 
@@ -48,7 +48,7 @@ export function useDeleteForever() {
 
   return useMutation({
     mutationFn: async (messageId: string) => {
-      await api.delete(`/api/v1/mail/message/${messageId}/permanent`);
+      await api.delete(`/mail/message/${messageId}/permanent`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["trash"] });

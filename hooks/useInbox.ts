@@ -6,7 +6,7 @@ export function useInbox() {
   return useQuery({
     queryKey: ['inbox'],
     queryFn: async () => {
-      const { data } = await api.get('/api/v1/mail/inbox');
+      const { data } = await api.get('/mail/inbox');
 
       // 1. Process Emails for the main list
       const emails = data.emails.map((email: any) => ({

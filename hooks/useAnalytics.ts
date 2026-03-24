@@ -25,12 +25,12 @@ export function useAnalytics() {
     queryKey: ["mailbox-analytics"],
     queryFn: async () => {
       const response = await api.get<{ data: AnalyticsData }>(
-        "/api/v1/mail/analytics"
+        "/mail/analytics",
       );
       return response.data.data;
     },
     refetchInterval: TWELVE_HOURS_MS,
     staleTime: TWELVE_HOURS_MS,
-    gcTime: TWELVE_HOURS_MS + 1000 * 60 * 30,  
+    gcTime: TWELVE_HOURS_MS + 1000 * 60 * 30,
   });
 }

@@ -23,7 +23,7 @@ export function useSendEmail() {
   const sendMutation = useMutation({
     mutationFn: async (data: SendEmailData) => {
 
-      const response = await api.post('/api/v1/mail/send', data);
+      const response = await api.post('/mail/send', data);
       return response.data;
     },
     onSuccess: () => {

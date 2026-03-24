@@ -7,7 +7,7 @@ export function useEmailDetails(emailId: string) {
   return useQuery({
     queryKey: ["email", emailId],
     queryFn: async () => {
-      const { data } = await api.get(`/api/v1/mail/messages/${emailId}`);
+      const { data } = await api.get(`/mail/messages/${emailId}`);
       queryClient.invalidateQueries({ queryKey: ["inbox"] });
 
       const formatName = (person: any) => {

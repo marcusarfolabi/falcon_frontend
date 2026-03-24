@@ -16,7 +16,7 @@ export function useSearch(searchTerm: string) {
     queryKey: ['search', debouncedTerm],
     queryFn: async () => {
       if (!debouncedTerm) return [];
-      const { data } = await api.get(`/api/v1/mail/search?q=${debouncedTerm}`);
+      const { data } = await api.get(`/mail/search?q=${debouncedTerm}`);
       
       return data.map((email: any) => ({
         id: email.id,

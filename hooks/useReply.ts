@@ -22,7 +22,7 @@ export function useReply() {
 
   return useMutation({
     mutationFn: async (data: ReplyData) => {
-      const response = await api.post('/api/v1/mail/reply', data);
+      const response = await api.post('/mail/reply', data);
       return response.data;
     },
     onSuccess: () => {

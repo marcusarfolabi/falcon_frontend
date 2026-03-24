@@ -17,9 +17,9 @@ export function useEmailAction() {
     }) => {
       // Mapping actions to endpoints
       const endpoints: Record<string, string> = {
-        delete: `/api/v1/mail/messages/${id}`,
-        trash: `/api/v1/mail/messages/${id}/trash`,
-        restore: `/api/v1/mail/messages/${id}/restore`,
+        delete: `/mail/messages/${id}`,
+        trash: `/mail/messages/${id}/trash`,
+        restore: `/mail/messages/${id}/restore`,
       };
 
       const method = action === "delete" ? "delete" : "post";

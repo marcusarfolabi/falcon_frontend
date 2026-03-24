@@ -11,7 +11,7 @@ export function useUploadAttachment() {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await api.post<UploadResponse>('/api/v1/mail/upload', formData, {
+      const response = await api.post<UploadResponse>('/mail/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
