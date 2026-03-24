@@ -2,12 +2,19 @@
 import { useEffect, useState } from 'react';
 import {
     Globe, ShieldCheck, ShieldAlert, Users, HardDrive,
-    ChevronLeft, ChevronRight, Loader2, Plus, Zap
+    ChevronLeft, ChevronRight, Loader2, Plus, Zap,
+    CheckCircle2,
+    ShieldPlus
 } from 'lucide-react'; 
-import { getDomainOverview } from '@/lib/api/domain';
+import { addDomain, getDomainOverview } from '@/lib/api/domain';
 import { DomainOverviewResponse } from '@/types/domain';
+import { Modal } from '@/components/common/Modal';
 
 export default function DomainsPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [domainName, setDomainName] = useState("");
+    const [selectedPlan, setSelectedPlan] = useState("prod_business_sovereign");
     const [data, setData] = useState<DomainOverviewResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [offset, setOffset] = useState(0);
@@ -23,7 +30,7 @@ export default function DomainsPage() {
 
     if (loading && !data) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+            <div className="flex flex-col items-center justify-center min-h-100 space-y-4">
                 <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
                 <p className="text-slate-500 font-medium">Analyzing Domain Assets...</p>
             </div>
@@ -31,13 +38,32 @@ export default function DomainsPage() {
     }
 
     if (!data) return null;
+   
+
+    const isValidDomain = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(domainName);
+    const handleAddDomain = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        try {
+            // Logic to call your backend
+            const result = await addDomain(domainName);
+            setIsModalOpen(false);
+            setDomainName("");
+            // You'd ideally refresh your data list here
+            window.location.reload();
+        } catch (err) {
+            console.error("Failed to add domain:", err);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
             {/* --- SUMMARY STATS FOR CEO --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="md:col-span-2 bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div className="md:col-span-2 bg-white rounded-4xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
                     <div className="flex justify-between items-start">
                         <div>
                             <h3 className="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-2 py-1 rounded inline-block mb-4">
@@ -60,7 +86,7 @@ export default function DomainsPage() {
                     </div>
                 </div>
 
-                <div className="bg-slate-900 rounded-[2rem] p-8 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
+                <div className="bg-slate-900 rounded-4xl p-8 text-white flex flex-col justify-between shadow-xl relative overflow-hidden group">
                     <div className="relative z-10">
                         <Zap className="w-8 h-8 text-blue-400 mb-4" />
                         <h4 className="text-xl font-bold mb-2">New Identity</h4>
@@ -68,15 +94,75 @@ export default function DomainsPage() {
                             Connect your external domain to begin provisioning mailboxes.
                         </p>
                     </div>
-                    <button className="relative z-10 mt-6 w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition-all flex items-center justify-center gap-2">
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                         className="relative z-10 cursor-pointer mt-6 w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-500 transition-all flex items-center justify-center gap-2">
                         <Plus className="w-4 h-4" /> Add New Domain
                     </button>
                     <Globe className="absolute -bottom-6 -right-6 w-32 h-32 text-white/5 -rotate-12" />
                 </div>
+                <Modal
+                    isOpen={isModalOpen}
+                    onClose={() => !isSubmitting && setIsModalOpen(false)}
+                    title="Link New Domain"
+                    subtitle="Infrastructure Setup"
+                >
+                    <form onSubmit={handleAddDomain} className="space-y-6">
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                    Domain Address
+                                </label>
+                                {isValidDomain && (
+                                    <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-500 uppercase">
+                                        <CheckCircle2 className="w-3 h-3" /> Format Valid
+                                    </span>
+                                )}
+                            </div>
+                            <div className="relative">
+                                <input
+                                    required
+                                    type="text"
+                                    placeholder="yourdomain.com"
+                                    value={domainName}
+                                    onChange={(e) => setDomainName(e.target.value.toLowerCase().trim())}
+                                    className={`w-full bg-slate-50 border-2 rounded-2xl px-5 py-4 text-sm font-bold text-slate-900 outline-none transition-all ${domainName && !isValidDomain ? 'border-red-100 focus:border-red-400' : 'border-slate-100 focus:border-blue-500'
+                                        }`}
+                                />
+                                <ShieldPlus className="absolute right-5 top-4 w-5 h-5 text-slate-300" />
+                            </div>
+                        </div>
+
+                        <div className="bg-slate-50 p-5 rounded-3xl border border-slate-100">
+                            <h5 className="text-[10px] font-black text-slate-900 uppercase mb-2">Next Steps</h5>
+                            <ul className="space-y-2">
+                                {['Ownership validation token will be generated', 'You must update your DNS TXT records'].map((step, i) => (
+                                    <li key={i} className="flex items-start gap-2 text-[10px] text-slate-500 font-medium">
+                                        <div className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                                        {step}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isSubmitting || !isValidDomain}
+                            className="w-full bg-slate-900 text-white py-5 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-blue-600 transition-all shadow-lg shadow-slate-200 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 animate-spin" /> Analyzing...
+                                </>
+                            ) : (
+                                "Start Verification"
+                            )}
+                        </button>
+                    </form>
+                </Modal>
             </div>
 
-            {/* --- DOMAIN TABLE --- */}
-            <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-4xl border border-slate-200 shadow-sm overflow-hidden">
                 <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                     <div className="flex items-center gap-3 ml-2">
                         <Globe className="w-4 h-4 text-slate-400" />
