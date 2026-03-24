@@ -37,7 +37,7 @@ export function AuthSelect({
 
                         <span className="block truncate">
                             {value ? (
-                                <span className="text-slate-900">{value}</span>
+                                <span className="text-slate-400">{value}</span>
                             ) : (
                                 <span className="text-slate-400">{placeholder}</span>
                             )}

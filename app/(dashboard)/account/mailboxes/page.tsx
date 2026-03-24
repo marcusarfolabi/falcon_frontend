@@ -81,6 +81,7 @@ export default function MailboxPage() {
   };
   useEffect(() => {
     refreshData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offset]);
 
   if (loading && !data) {

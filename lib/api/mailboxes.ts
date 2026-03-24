@@ -25,19 +25,7 @@ export async function getMailboxOverview(
   );
   return response.data;
 }
-
-// export async function addMailBox(
-//   payload: CreateMailboxPayload,
-// ): Promise<CreateMailboxResponse> {
-//   const response = await api.post<CreateMailboxResponse>(
-//     "/mailboxes/add",
-//     payload,
-//     {
-//       headers: FORM_HEADER,
-//     },
-//   );
-//   return response.data;
-// }
+ 
 
 export const addMailBox = async (data: CreateMailboxPayload) => {
   return await api.post("/mailboxes/add", data, {
