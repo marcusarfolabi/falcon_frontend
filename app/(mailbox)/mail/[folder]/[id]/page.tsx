@@ -165,29 +165,62 @@ export default function EmailDetail(props: { params: Params }) {
                 {/* Sender Info & Time Container */}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap justify-between items-center gap-x-2 gap-y-1">
-                    {/* Name */}
-                    <span className="font-black text-slate-900 text-sm sm:text-base truncate">
-                      {email.from.name || "Unknown"}
-                    </span>
+                    {/* Name & Primary Email */}
+                    <div className="flex items-center gap-2">
+                      <span className="font-black text-slate-900 text-sm sm:text-base truncate">
+                        {email.from.name || "Unknown"}
+                      </span>
+                      <span className="text-[11px] text-slate-400 font-medium lowercase">
+                        &lt;{email.from.email}&gt;
+                      </span>
+                    </div>
 
-                    {/* Dark Badge Time: Directly next to Name */}
+                    {/* Dark Badge Time */}
                     <time className="text-[9px] font-black text-white bg-slate-900 px-2 py-0.5 rounded-full uppercase tracking-tighter shrink-0">
                       {formatEmailDate(email.date)}
                     </time>
                   </div>
 
-                  {/* Email Address */}
-                  <div className="text-[11px] text-slate-400 truncate mt-0.5">
-                    {email.from.email}
-                  </div>
+                  {/* Recipient Rows (Gmail Style) */}
+                  <div className="flex flex-col gap-0.5 mt-1">
+                    {/* TO Recipients */}
+                    {email.to && email.to.length > 0 && (
+                      <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                        <span className="text-slate-400 w-4">to</span>
+                        <span className="truncate max-w-50">
+                          {email.to[0].name || email.to[0].email}
+                        </span>
+                        {email.to.length > 1 && (
+                          <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded-sm text-[9px] font-bold">
+                            +{email.to.length - 1} more
+                          </span>
+                        )}
+                      </div>
+                    )}
 
-                  {/* "to me" label - keeping it clean */}
-                  <div className="flex items-center gap-1 mt-1 text-[10px] text-slate-400">
-                    <span className="font-medium">to me</span>
-                    {email.to.length > 1 && (
-                      <span className="bg-slate-100 px-1 rounded text-[9px]">
-                        +{email.to.length - 1}
-                      </span>
+                    {/* CC Recipients - Only show if present */}
+                    {email.cc && email.cc.length > 0 && (
+                      <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                        <span className="text-slate-400 w-4 font-semibold uppercase text-[8px]">cc</span>
+                        <span className="truncate max-w-50">
+                          {email.cc[0].name || email.cc[0].email}
+                        </span>
+                        {email.cc.length > 1 && (
+                          <span className="text-slate-400 text-[9px]">
+                            & {email.cc.length - 1} others
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* BCC Recipients - Only show if present (usually for Sent items) */}
+                    {email.bcc && email.bcc.length > 0 && (
+                      <div className="flex items-center gap-1.5 text-[10px] text-slate-500 border-l-2 border-amber-100 pl-2">
+                        <span className="text-amber-600 w-6 font-semibold uppercase text-[8px]">bcc</span>
+                        <span className="truncate max-w-50">
+                          {email.bcc[0].name || email.bcc[0].email}
+                        </span>
+                      </div>
                     )}
                   </div>
                 </div>
