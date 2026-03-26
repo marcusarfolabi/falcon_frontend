@@ -66,7 +66,7 @@ export default function MailComposer({
     e: KeyboardEvent<HTMLInputElement>,
     type: "to" | "cc" | "bcc",
   ) => {
-    if (e.key === "Enter" || e.key === " ") {
+    if (e.key === "Enter" || e.key === "," || e.key === " ") {
       e.preventDefault();
       if (type === "to")
         createPill(inputValue, setEmails, setInputValue, emails);
@@ -81,7 +81,11 @@ export default function MailComposer({
       setEmails(emails.slice(0, -1));
     }
   };
-
+  const handleBlur = (type: "to" | "cc" | "bcc") => {
+    if (type === "to") createPill(inputValue, setEmails, setInputValue, emails);
+    if (type === "cc") createPill(ccInput, setCc, setCcInput, cc);
+    if (type === "bcc") createPill(bccInput, setBcc, setBccInput, bcc);
+  };
   const handleFileSelect = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
@@ -193,86 +197,89 @@ export default function MailComposer({
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
-      <div className="px-4 py-1.5 border-b border-slate-100 flex flex-wrap items-center gap-2">
-        <span className="text-sm text-slate-500 w-8 ">To</span>
-        {emails.map((email, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-1 bg-slate-100 border border-slate-300 px-2 py-0.5 rounded-full text-xs text-slate-700"
-          >
-            {email}{" "}
-            <X
-              size={12}
-              className="cursor-pointer hover:text-red-500"
-              onClick={() => setEmails(emails.filter((_, idx) => idx !== i))}
+      <div className="px-4 py-2 border-b border-slate-100 flex flex-wrap items-center gap-2 min-h-[45px]">
+        <span className="text-sm text-slate-500 w-8 shrink-0 select-none">To</span>
+        <div className="flex flex-wrap items-center gap-2 flex-1">
+          {emails.map((email, i) => (
+            <EmailPill
+              key={i}
+              email={email}
+              onRemove={() => setEmails(emails.filter((_, idx) => idx !== i))}
             />
-          </div>
-        ))}
-        <input
-          value={inputValue}
-          onChange={(e: any) => setInputValue(e.target.value)}
-          onKeyDown={(e: any) => handleKeyDown(e, "to")}
-          type="text"
-          className="flex-1 min-w-30 py-1 text-sm outline-none"
-        />
+          ))}
+          <input
+            value={inputValue}
+            onChange={(e) => {
+              const val = e.target.value;
+              // If user pastes multiple emails separated by commas or semicolons
+              if (val.includes(",") || val.includes(";")) {
+                const parts = val.split(/[ ,;]+/).filter(Boolean);
+                setEmails([...emails, ...parts.filter(p => !emails.includes(p))]);
+                setInputValue("");
+              } else {
+                setInputValue(val);
+              }
+            }}
+            onKeyDown={(e) => handleKeyDown(e, "to")}
+            onBlur={() => handleBlur("to")} // <--- ADD THIS
+            type="text"
+            placeholder={emails.length === 0 ? "Recipients" : ""}
+            className="flex-1 min-w-[120px] py-1 text-sm outline-none bg-transparent"
+          />
+        </div>
         {!showCcBcc && (
           <button
-            aria-label="CcBcc"
             onClick={() => setShowCcBcc(true)}
-            className="text-[10px] font-bold text-slate-400 hover:text-slate-600 flex items-center gap-0.5"
+            className="text-[10px] font-bold text-slate-400 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors uppercase tracking-wider shrink-0"
           >
-            CC/BCC <ChevronDown size={12} />
+            Cc/Bcc
           </button>
         )}
       </div>
 
+      {/* CC & BCC Sections */}
       {showCcBcc && (
-        <>
-          <div className="px-4 py-1.5 border-b border-slate-100 flex flex-wrap items-center gap-2">
-            <span className="text-sm text-slate-500 w-8">Cc</span>
-            {cc.map((email, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-1 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-full text-xs text-slate-600"
-              >
-                {email}{" "}
-                <X
-                  size={12}
-                  className="cursor-pointer hover:text-red-500"
-                  onClick={() => setCc(cc.filter((_, idx) => idx !== i))}
+        <div className="bg-slate-50/50">
+          {/* CC */}
+          <div className="px-4 py-2 border-b border-slate-100 flex flex-wrap items-center gap-2 min-h-[40px]">
+            <span className="text-sm text-slate-500 w-8 shrink-0 select-none">Cc</span>
+            <div className="flex flex-wrap items-center gap-2 flex-1">
+              {cc.map((email, i) => (
+                <EmailPill
+                  key={i}
+                  email={email}
+                  onRemove={() => setCc(cc.filter((_, idx) => idx !== i))}
                 />
-              </div>
-            ))}
-            <input
-              value={ccInput}
-              onChange={(e) => setCcInput(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, "cc")}
-              className="flex-1 py-1 text-sm outline-none"
-            />
+              ))}
+              <input
+                value={ccInput}
+                onChange={(e) => setCcInput(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, "cc")}
+                className="flex-1 min-w-[120px] py-1 text-sm outline-none bg-transparent"
+              />
+            </div>
           </div>
-          <div className="px-4 py-1.5 border-b border-slate-100 flex flex-wrap items-center gap-2">
-            <span className="text-sm text-slate-500 w-8">Bcc</span>
-            {bcc.map((email, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-1 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded-full text-xs text-slate-600"
-              >
-                {email}{" "}
-                <X
-                  size={12}
-                  className="cursor-pointer hover:text-red-500"
-                  onClick={() => setBcc(bcc.filter((_, idx) => idx !== i))}
+
+          {/* BCC */}
+          <div className="px-4 py-2 border-b border-slate-100 flex flex-wrap items-center gap-2 min-h-[40px]">
+            <span className="text-sm text-slate-500 w-8 shrink-0 select-none">Bcc</span>
+            <div className="flex flex-wrap items-center gap-2 flex-1">
+              {bcc.map((email, i) => (
+                <EmailPill
+                  key={i}
+                  email={email}
+                  onRemove={() => setBcc(bcc.filter((_, idx) => idx !== i))}
                 />
-              </div>
-            ))}
-            <input
-              value={bccInput}
-              onChange={(e) => setBccInput(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, "bcc")}
-              className="flex-1 py-1 text-sm outline-none"
-            />
+              ))}
+              <input
+                value={bccInput}
+                onChange={(e) => setBccInput(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, "bcc")}
+                className="flex-1 min-w-[120px] py-1 text-sm outline-none bg-transparent"
+              />
+            </div>
           </div>
-        </>
+        </div>
       )}
 
       {/* Subject */}
@@ -403,3 +410,16 @@ export default function MailComposer({
     </div>
   );
 }
+
+const EmailPill = ({ email, onRemove }: { email: string; onRemove: () => void }) => (
+  <div className="flex items-center gap-1.5 bg-slate-100 border border-slate-200 pl-2.5 pr-1.5 py-0.5 rounded-full text-xs font-medium text-slate-700 hover:bg-slate-200 transition-colors group">
+    <span>{email}</span>
+    <button
+      type="button"
+      onClick={onRemove}
+      className="p-0.5 rounded-full text-slate-400 hover:bg-slate-300 hover:text-slate-600 transition-all"
+    >
+      <X size={12} strokeWidth={3} />
+    </button>
+  </div>
+);
