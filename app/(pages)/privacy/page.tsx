@@ -73,7 +73,7 @@ export default function PrivacyPage() {
                         <div className="flex items-center gap-4 text-muted-foreground/60 font-mono text-[11px] uppercase tracking-widest">
                             <span>Ref: FLCN-01-JAN-2026-V1</span>
                             <span className="w-1 h-1 bg-border rounded-full" />
-                            <span>Ayokah Services Ltd</span>
+                            <span>FalconMail Services Ltd</span>
                         </div>
                     </header>
 
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
 
                     <footer className="mt-32 pt-12 border-t border-border/40 text-center">
                         <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.4em]">
-                            GDPR Compliant • E2EE Verified • Ayokah Services Ltd
+                            GDPR Compliant • E2EE Verified • FalconMail Services Ltd
                         </p>
                     </footer>
                 </motion.main>

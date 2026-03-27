@@ -4,7 +4,6 @@ import { Mail, MessageSquare, Globe, ExternalLink } from "lucide-react";
 
 export default function SecureContactSection() {
     const handleContact = (type: "email" | "phone" | "chat") => {
-        // We keep the actual strings inside the function, not the JSX
         const data = {
             email: "support@falconmail.online",
             phone: "+1447930173135",
@@ -15,7 +14,6 @@ export default function SecureContactSection() {
         } else if (type === "phone") {
             window.location.href = `tel:${data.phone}`;
         } else if (type === "chat") {
-            // Logic for opening your dashboard or chat widget
             console.log("Opening dashboard...");
         }
     };

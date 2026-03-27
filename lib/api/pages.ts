@@ -3,12 +3,8 @@ import api from "@/lib/axios";
 /**
  * Pages API methods
  */
-export const PagesApi = {
-  ensureCsrf: async () => {
-    return await api.get("/sanctum/csrf-cookie");
-  },
+export const PagesApi = { 
 
-  // Contact Mail (General Inquiries)
   contactMail: async (data: any) => {
     return api.post("/contact/mail", { ...data });
   },

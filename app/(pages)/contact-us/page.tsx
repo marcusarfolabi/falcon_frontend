@@ -55,7 +55,6 @@ export default function ContactPage() {
         try {
             await PagesApi.contactMail(formData);
             toast.success("Transmission successful.");
-            // Reset form
             setFormData({ name: "", email: "", type: "General Inquiry", message: "" });
             refreshChallenge();
         } catch (error) {

@@ -83,7 +83,7 @@ export default function TermsPage() {
                         <div className="flex items-center gap-4 text-muted-foreground/60 font-mono text-[11px] uppercase tracking-widest">
                             <span>Ref: FLCN-01-JAN-2026-V1</span>
                             <span className="w-1 h-1 bg-border rounded-full" />
-                            <span>Ayokah Services Ltd</span>
+                            <span>FalconMail Services Ltd</span>
                         </div>
                     </header>
 
@@ -163,13 +163,13 @@ export default function TermsPage() {
                             <span className="text-brand-primary font-mono text-sm">06.</span> Limitation of Liability
                         </h2>
                         <p className="text-muted-foreground leading-relaxed text-sm">
-                            To the maximum extent permitted by law, Falcon (Ayokah Services Ltd) provides the service "AS IS" and "AS AVAILABLE". We are not liable for business interruptions caused by third-party API outages (e.g., WhatsApp downtime) or "Stalwart Config Errors" resulting from user-side modifications.
+                            To the maximum extent permitted by law, Falcon (FalconMail Services Ltd) provides the service "AS IS" and "AS AVAILABLE". We are not liable for business interruptions caused by third-party API outages (e.g., WhatsApp downtime) or "Stalwart Config Errors" resulting from user-side modifications.
                         </p>
                     </section>
 
                     <footer className="mt-32 pt-12 border-t border-border/40 text-center">
                         <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.4em]">
-                            Security Verified • Falcon Engine v1.0 • Ayokah Services Ltd
+                            Security Verified • Falcon Engine v1.0 • FalconMail Services Ltd
                         </p>
                     </footer>
                 </motion.main>
